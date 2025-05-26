@@ -60,6 +60,57 @@
         font-weight: bold;
     }
 
+    .recommended-dishes, .about-us, .contact-us {
+        padding: 30px 20px;
+        text-align: center;
+    }
+
+    .recommended-dishes h2, .about-us h2, .contact-us h2 {
+        font-size: 1.8em;
+        margin-bottom: 20px;
+        font-family: 'Times New Roman', Times, serif;
+        color: #333;
+    }
+
+    .dishes-container {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .dish-item {
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        width: calc(33.333% - 20px); /* Adjust based on gap for 3 items per row */
+        min-width: 100px;
+        box-sizing: border-box;
+        margin-bottom: 15px;
+    }
+
+    .dish-item img {
+        width: 100%;
+        height: auto;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+    }
+
+    .dish-item p {
+        font-size: 0.9em;
+        font-weight: bold;
+        margin: 10px 0 5px;
+        color: #555;
+    }
+
+    .dish-item span {
+        font-size: 0.9em;
+        color: #888;
+        display: block;
+        margin-bottom: 10px;
+    }
+
 
 
 }

@@ -42,5 +42,24 @@
         z-index: 1;
     }
 
+    .opening h1 {
+        font-size: 1.5em;
+        margin-bottom: 20px;
+        font-family: 'Times New Roman', Times, serif;
+        line-height: 1.2;
+    }
+
+    .order-button {
+        background-color: #A52A2A; /* Brownish Red */
+        color: white;
+        border: none;
+        padding: 15px 40px;
+        font-size: 0.8em;
+        border-radius: 25px;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+
 
 }

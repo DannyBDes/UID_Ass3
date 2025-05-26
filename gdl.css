@@ -15,4 +15,32 @@
         align-items: center;
         justify-content: center;
     }
+
+    .opening {
+        background-image: url('gdlspot.jpg');
+        background-size: cover;
+        background-position: center;
+        height: 300px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        color: white;
+        padding: 20px;
+        position: relative;
+    }
+
+    .opening::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.4); /* Dark overlay */
+        z-index: 1;
+    }
+
+
 }

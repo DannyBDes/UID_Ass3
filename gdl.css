@@ -18,7 +18,6 @@
 
     .header-logo {
         height: 100px;
-
     }
 
     .opening {
@@ -172,7 +171,38 @@
         color: #FFD700; /* Gold */
     }
 
+    footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        box-shadow: 0 -2px 5px rgba(0,0,0,0.1); /* Optional: subtle shadow */
+        z-index: 1000; /* Ensure footer is above other content */
+    }
 
+    .footer-nav {
+        display: flex;
+        height: 55px; 
+    }
 
+    .footer-nav .nav-item {
+        flex-grow: 1; /* Each item takes equal width */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+        color: white;
+        font-size: 1.7em; 
+        background-color: #A91F1F; /* Default INACTIVE background (brighter red) */
+        cursor: pointer;
+        transition: background-color 0.2s ease-in-out;
+    }
 
+    .footer-nav .nav-item.active {
+        background-color: #5C1A1A; /* ACTIVE background (darker red for active icon) */
+    }
+
+    .footer-nav .nav-item:hover:not(.active) {
+        background-color: #c82f2f; /* Slightly brighter/different red for hover on inactive items */
+    }
 }

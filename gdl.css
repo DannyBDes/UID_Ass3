@@ -16,6 +16,11 @@
         justify-content: center;
     }
 
+    .header-logo {
+        height: 100px;
+
+    }
+
     .opening {
         background-image: url('gdlspot.jpg');
         background-size: cover;
@@ -40,6 +45,11 @@
         bottom: 0;
         background-color: rgba(0, 0, 0, 0.4); /* Dark overlay */
         z-index: 1;
+    }
+
+    .opening-content {
+        position: relative;
+        z-index: 2;
     }
 
     .opening h1 {
@@ -110,6 +120,58 @@
         display: block;
         margin-bottom: 10px;
     }
+
+    .about-us p {
+        font-size: 1em;
+        line-height: 1.6;
+        color: #555;
+        margin-bottom: 20px;
+        text-align: left;
+        padding: 0 10px;
+    }
+
+    .about-us img {
+        width: 100%;
+        max-width: 600px;
+        height: auto;
+        border-radius: 8px;
+        margin-top: 10px;
+    }
+
+    .contact-us {
+        background-color: #333333; /* Dark Gray */
+        color: #f0f0f0;
+        /* Adjust padding-bottom to make space for the fixed footer */
+        /* Footer height (e.g., 55px) + some extra space (e.g., 15px) = 70px */
+        padding-bottom: 70px;
+    }
+
+    .contact-us h2 {
+        color: #f0f0f0;
+        font-family: 'Times New Roman', Times, serif;
+    }
+
+    .contact-us p {
+        font-size: 0.9em;
+        margin: 8px 0;
+        font-family: 'Georgia', serif;
+    }
+
+    .social-icons {
+        margin-top: 20px;
+    }
+
+    .social-icons a {
+        color: #f0f0f0;
+        font-size: 1.5em;
+        margin: 0 10px;
+        text-decoration: none;
+    }
+
+    .social-icons a:hover {
+        color: #FFD700; /* Gold */
+    }
+
 
 
 

@@ -26,12 +26,15 @@ html {
         display: flex;
         align-items: center;
         justify-content: center;
+        width: 100%;
     }
 
-    .header-logo {
+    .logo-container { display: flex; align-items: center; justify-content: center; }
+    .header-logo { 
         height: 100px;
     }
 
+    /* --- HOMEPAGE SPECIFIC STYLES --- */
     .opening {
         background-image: url('gdlspot.jpg');
         background-size: cover;
@@ -73,7 +76,7 @@ html {
     }
 
     .order-button {
-        background-color: #A52A2A; /* Brownish Red */
+        background-color: #A52A2A; 
         color: white;
         border: none;
         padding: 15px 40px;

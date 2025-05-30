@@ -84,6 +84,7 @@ html {
         border-radius: 25px;
         cursor: pointer;
         font-weight: bold;
+        font-family: "Ancizar Serif", serif;
     }
 
     .recommended-dishes, .about-us, .contact-us {
@@ -97,8 +98,10 @@ html {
         font-family: "Vidaloka", serif;
         font-weight: 400;
         font-style: normal;
-        color: #333;
+        /*color: #333; */
     }
+
+    .recommended-dishes h2, .about-us h2 { color: #333;  }
 
     .dishes-container {
         display: flex;
@@ -107,125 +110,148 @@ html {
         gap: 15px;
     }
 
-    .dish-item {
-        background-color: #f9f9f9;
-        border-radius: 8px;
-        width: calc(33.333% - 20px); /* Adjust based on gap for 3 items per row */
-        min-width: 100px;
-        box-sizing: border-box;
-        margin-bottom: 15px;
+    /* This rule is for the homepage-style dish items */
+    .dishes-container:not(.menu-page-dishes) > .dish-item { /* More specific to homepage style */
+        background-color: #f9f9f9; 
+        border-radius: 8px; 
+        width: calc(33.333% - 20px); /* Adjust based on gap for 3 items per row, from original */
+        min-width: 100px; 
+        box-sizing: border-box; 
+        margin-bottom: 15px; 
+        text-align: center; /* Ensuring content like text is centered */
+    }
+    .dishes-container:not(.menu-page-dishes) > .dish-item img { /* Homepage dish item image */
+        width: 100%; 
+        height: auto; 
+        border-top-left-radius: 8px; 
+        border-top-right-radius: 8px; 
+        aspect-ratio: 1 / 1; 
+        object-fit: cover; 
+    }
+    .dishes-container:not(.menu-page-dishes) > .dish-item p { /* Homepage dish item text */
+        font-size: 0.9em; 
+        font-weight: bold; 
+        margin: 10px 0 5px; 
+        color: #555; 
+    }
+    .dishes-container:not(.menu-page-dishes) > .dish-item span { /* Homepage dish item price */
+        font-size: 0.9em; 
+        color: #888; 
+        display: block; 
+        margin-bottom: 10px; 
     }
 
-    .dish-item img {
-        width: 100%;
-        height: auto;
-        border-top-left-radius: 8px;
-        border-top-right-radius: 8px;
-        aspect-ratio: 1 / 1;
-        object-fit: cover;
-    }
 
-    .dish-item p {
-        font-size: 0.9em;
-        font-weight: bold;
-        margin: 10px 0 5px;
-        color: #555;
-    }
-
-    .dish-item span {
-        font-size: 0.9em;
-        color: #888;
-        display: block;
-        margin-bottom: 10px;
-    }
-
-    .about-us p {
-        font-size: 1em;
-        line-height: 1.6;
-        color: #555;
-        margin-bottom: 20px;
-        text-align: left;
-        padding: 0 10px;
-    }
-
-    .about-us img {
-        width: 100%;
-        max-width: 600px;
-        height: auto;
-        border-radius: 8px;
-        margin-top: 10px;
-    }
-
-    .contact-us {
-        background-color: #333333; /* Dark Gray */
-        color: #f0f0f0;
-        /* Adjust padding-bottom to make space for the fixed footer */
-        /* Footer height (e.g., 55px) + some extra space (e.g., 15px) = 70px */
-        padding-bottom: 70px;
-    }
-
-    .contact-us h2 {
-        color: #f0f0f0;
-        font-family: "Vidaloka", serif;
-        font-weight: 400;
-        font-style: normal;
-    }
-
-    .contact-us p {
-        font-size: 0.9em;
-        margin: 8px 0;
-        font-family: "Vidaloka", serif;
-        font-weight: 400;
-        font-style: normal;
-    }
-
-    .social-icons {
-        margin-top: 20px;
-    }
-
-    .social-icons a {
-        color: #f0f0f0;
-        font-size: 1.5em;
-        margin: 0 10px;
-        text-decoration: none;
-    }
-
-    .social-icons a:hover {
-        color: #FFD700; /* Gold */
-    }
-
-    footer {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        box-shadow: 0 -2px 5px rgba(0,0,0,0.1); /* Optional: subtle shadow */
-        z-index: 1000; /* Ensure footer is above other content */
-    }
-
-    .footer-nav {
-        display: flex;
-        height: 55px; 
-    }
-
-    .footer-nav .nav-item {
-        flex-grow: 1; /* Each item takes equal width */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-decoration: none;
-        color: white;
-        font-size: 1.7em; 
-        background-color: #A91F1F; /* Default INACTIVE background (brighter red) */
-        cursor: pointer;
-        transition: background-color 0.2s ease-in-out;
-    }
-
-    .footer-nav .nav-item.active {
-        background-color: #5C1A1A; /* ACTIVE background (darker red for active icon) */
-    }
-
-    .footer-nav .nav-item:hover:not(.active) {
-        background-color: #c82f2f; /* Slightly brighter/different red for hover on inactive items */
-    }
-}
+     /* --- STYLES FOR MENU PAGE (Initial Additions + Horizontal Scroll for Dishes) --- */
+     .menu-search-section { background-color: #5a0e0e; padding: 15px 20px; display: flex; justify-content: center; align-items: center; }
+     .menu-search-bar-container { background-color: #edd1d8; border-radius: 25px; padding: 10px 18px; display: flex; align-items: center; width: 100%; max-width: 350px; }
+     .menu-search-bar-container .search-icon-menu { color: #5a0e0e; margin-right: 12px; font-size: 1em; }
+     .menu-search-bar-container input { border: none; background: transparent; outline: none; flex-grow: 1; font-family: "Ancizar Serif", serif; font-size: 1em; color: #333; }
+     .menu-search-bar-container input::placeholder { color: #7c5c61; font-family: "Ancizar Serif", serif; }
+ 
+     .menu-page-title-container { background-color: #8B0000; padding: 20px 20px; text-align: center; }
+     .menu-page-title-container h1 { font-family: "Vidaloka", serif; font-size: 2.5em; color: #FFF8DC; margin: 0; font-weight: 400; font-style: normal; }
+ 
+     .menu-page-main-content { background-color: #401515; padding: 25px 20px; color: white; }
+     .menu-page-main-content .food-category { margin-bottom: 35px; }
+     .menu-page-main-content .food-category:last-child { margin-bottom: 0; }
+     .menu-page-main-content .food-category h2 { font-family: "Vidaloka", serif; font-size: 2em; color: white; margin-bottom: 20px; padding-left: 0; text-align: left; font-weight: 400; font-style: normal; }
+ 
+     /* Dishes container on Menu Page - WITH HORIZONTAL SCROLLING */
+     .dishes-container.menu-page-dishes {
+         display: flex;
+         flex-wrap: nowrap;   /* Items stay on one line */
+         overflow-x: auto;   /* Enable horizontal scrolling */
+         overflow-y: hidden; /* Hide vertical scrollbar */
+         padding-bottom: 10px; /* Space for scrollbar */
+         justify-content: flex-start; /* Align items to the start */
+         gap: 20px;
+         -webkit-overflow-scrolling: touch;
+         scrollbar-width: thin;
+         scrollbar-color: #888 #401515;
+     }
+     .dishes-container.menu-page-dishes::-webkit-scrollbar { height: 8px; }
+     .dishes-container.menu-page-dishes::-webkit-scrollbar-track { background: #401515; border-radius: 4px; }
+     .dishes-container.menu-page-dishes::-webkit-scrollbar-thumb { background-color: #888; border-radius: 4px; border: 2px solid #401515; }
+ 
+     /* Dish items on Menu Page (as <a> tags) */
+     a.dish-item.menu-dish-item {
+         color: inherit; text-decoration: none; display: block;
+         flex-shrink: 0; /* Prevent items from shrinking */
+         background-color: transparent; position: relative; border-radius: 12px; overflow: hidden;
+         width: 160px; height: 160px; box-shadow: 0 4px 8px rgba(0,0,0,0.25);
+     }
+     a.dish-item.menu-dish-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+     a.dish-item.menu-dish-item .dish-info-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(0,0,0,0.9) 25%, rgba(0,0,0,0.7) 60%, rgba(0,0,0,0) 100%); padding: 15px 12px 10px 12px; color: white; text-align: left; border-bottom-left-radius: 12px; border-bottom-right-radius: 12px; box-sizing: border-box; }
+     a.dish-item.menu-dish-item .dish-info-overlay p { font-family: "Ancizar Serif", serif; font-size: 0.9em; font-weight: bold; margin: 0 0 5px 0; color: #fff; line-height: 1.2; }
+     a.dish-item.menu-dish-item .dish-info-overlay span { font-family: "Ancizar Serif", serif; font-size: 0.85em; font-weight: normal; color: #e0e0e0; display: block; margin: 0; }
+ 
+ 
+     /* --- COMMON: CONTACT US SECTION --- */
+     .contact-us {
+         background-color: #333333; /* Dark Gray, from original */
+         color: #f0f0f0; 
+         padding: 30px 20px; /* Base padding from original */
+         text-align: center; /* Added for menu page consistency, good general rule */
+         width: 100%; /* Ensure it takes full width */
+         /* Adjust padding-bottom to make space for the fixed footer */
+         /* Footer height (e.g., 55px) + some extra space (e.g., 15px) = 70px */
+         /* Or, 30px internal + 55px footer = 85px */
+         padding-bottom: 85px; /* From original, for footer gap */
+     }
+     .contact-us h2 { /* From grouped H2 */
+         color: #f0f0f0; /* From original, for light text on dark bg */
+         font-family: "Vidaloka", serif; 
+         font-weight: 400; 
+         font-style: normal; 
+     }
+     .contact-us p {
+         font-size: 0.9em; 
+         margin: 8px 0; 
+         font-family: "Vidaloka", serif; 
+         font-weight: 400; 
+         font-style: normal; 
+     }
+ 
+     /* --- COMMON: SOCIAL ICONS --- */
+     .social-icons { margin-top: 20px;  }
+     .social-icons a { color: #f0f0f0; font-size: 1.5em; margin: 0 10px; text-decoration: none;  }
+     .social-icons a:hover { color: #FFD700; /* Gold, from original */ }
+ 
+     /* --- COMMON: FOOTER STYLES --- */
+     footer {
+         position: fixed; 
+         bottom: 0; 
+         left: 0; 
+         width: 100%; 
+         box-shadow: 0 -2px 5px rgba(0,0,0,0.1); /* Optional: subtle shadow, from original */
+         z-index: 1000; /* Ensure footer is above other content, from original */
+     }
+     .footer-nav {
+         display: flex; 
+         height: 55px; 
+         background-color: #A91F1F; /* Parent background for gap filling */
+     }
+     .footer-nav .nav-item {
+         flex-grow: 1; /* Each item takes equal width, from original */
+         display: flex; 
+         justify-content: center; 
+         align-items: center; 
+         text-decoration: none; 
+         color: white; 
+         font-size: 1.7em; 
+         background-color: #A91F1F; /* Default INACTIVE background (brighter red), from original */
+         cursor: pointer; 
+         transition: background-color 0.2s ease-in-out; 
+         border: 0 solid transparent; /* Fix for tiny gaps */
+         margin: 0; /* Fix for tiny gaps */
+         padding: 0; /* Fix for tiny gaps */
+         outline: 1px solid transparent; /* Fix for tiny gaps */
+     }
+     .footer-nav .nav-item.active {
+         background-color: #5C1A1A; /* ACTIVE background (darker red for active icon), from original */
+     }
+     .footer-nav .nav-item:hover:not(.active) {
+         background-color: #c82f2f; /* Slightly brighter/different red for hover on inactive items, from original */
+     }
+ }

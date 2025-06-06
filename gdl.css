@@ -249,7 +249,8 @@ html {
      .dishes-container.menu-page-dishes::-webkit-scrollbar { 
         height: 8px; 
     }
-     .dishes-container.menu-page-dishes::-webkit-scrollbar-track { background: #401515; 
+     .dishes-container.menu-page-dishes::-webkit-scrollbar-track { 
+        background: #401515; 
         border-radius: 4px; 
     }
      .dishes-container.menu-page-dishes::-webkit-scrollbar-thumb { 

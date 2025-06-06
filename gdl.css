@@ -478,7 +478,7 @@ html {
         margin-bottom: 25px;
         text-align: left;
     }
-    
+
     .toppings-heading {
         font-family: "Vidaloka", serif;
         font-size: 1.5em;
@@ -521,5 +521,52 @@ html {
     }
     /* END OF MODIFIED/NEW STYLES FOR TOPPINGS CHECKBOXES */
 
+    .product-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: auto; /* Pushes actions to the bottom */
+        padding-top: 20px;
+        width: 100%;
+    }
+
+    .product-close-button.circular-close-button {
+        background-color: #777;
+        color: white;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        font-size: 1.5em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    .add-to-cart-btn {
+        background-color: #A52A2A;
+        color: white;
+        border: none;
+        padding: 15px 0;
+        font-size: 1.1em;
+        border-radius: 25px;
+        cursor: pointer;
+        font-weight: bold;
+        font-family: "Ancizar Serif", serif;
+        text-align: center;
+        flex-grow: 1;
+        margin-left: 15px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    .product-not-found {
+        text-align: center;
+        padding: 50px 20px;
+        font-size: 1.2em;
+    }
+    .product-not-found a {
+        color: #FFD700; /* Gold */
+    }
+}
 
 }

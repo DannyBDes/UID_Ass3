@@ -24,3 +24,31 @@
             <input type="text" placeholder="Search">
         </div>
     </div>
+
+    <main class="product-details-container">
+        <button class="product-close-button top-close-button" aria-label="Close">
+            <i class="fas fa-times"></i>
+        </button>
+
+        <img src="" alt="Dish Image" id="product-image" class="product-main-image">
+
+        <div class="product-title-price">
+            <h1 id="product-name"></h1>
+            <span id="product-price" class="product-price-tag"></span>
+        </div>
+
+        <p id="product-description" class="product-description-text"></p>
+
+        <h2 class="toppings-heading">Toppings</h2>
+        <div id="product-toppings-list" class="toppings-list-container">
+            <!-- Toppings will be populated by JavaScript -->
+        </div>
+
+        <div class="product-actions">
+            <button class="product-close-button circular-close-button" aria-label="Close">
+                <i class="fas fa-times"></i>
+            </button>
+            <button id="add-to-cart-button" class="add-to-cart-btn">Add to Cart</button>
+        </div>
+    </main>
+

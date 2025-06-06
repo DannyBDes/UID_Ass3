@@ -276,8 +276,8 @@ html {
      a.dish-item.menu-dish-item img { 
         width: 100%; 
         height: 100%;
-         object-fit: cover; 
-         display: block; 
+        object-fit: cover; 
+        display: block; 
     }
      a.dish-item.menu-dish-item .dish-info-overlay { 
         position: absolute; 
@@ -386,4 +386,97 @@ html {
      .footer-nav .nav-item:hover:not(.active) {
          background-color: #c82f2f; /* Slightly brighter/different red for hover on inactive items, from original */
      }
- }
+
+    /* --- PRODUCT DETAILS PAGE (product.html) --- */
+    /* Hiding search bar on product page by default, can be overridden if needed */
+    .product-page-search-override {
+        display: none; /* Or style it to be less prominent */
+    }
+
+    /* Body adjustments for product page if needed (e.g., different default background if not covered)
+    The main container will have the dark background. */
+    body:has(.product-details-container) {
+        /* background-color: #401515; /* If the whole page should be dark, even outside modal */
+    }
+
+
+    .product-details-container {
+        background-color: #401515; /* Dark reddish-brown from menu page */
+        color: #f0f0f0; /* Light text color */
+        padding: 20px;
+        padding-top: 50px; /* Space for the top close button */
+        margin: 0 auto; /* Centering if max-width is applied */
+        /* max-width: 450px; /* Optional: constrain width on larger screens */
+        position: relative; /* For absolute positioning of top close button */
+        min-height: calc(100vh - 60px - 0px); /* (Viewport - header - search_if_visible). Adjust if search is visible */
+        display: flex;
+        flex-direction: column;
+    }
+
+    .product-close-button {
+        background-color: transparent;
+        border: none;
+        color: #f0f0f0; /* Light color for X */
+        font-size: 1.8em;
+        cursor: pointer;
+        padding: 5px;
+        line-height: 1;
+    }
+
+    .product-close-button.top-close-button {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        z-index: 10;
+    }
+
+    .product-main-image {
+        display: block; /* Ensures margin auto works for centering */
+        width: 100%;    /* Start by taking full available width within its constraints */
+        max-width: 300px; /* Maximum width it can be */
+        height: 250px;  /* <<< SET AN EXPLICIT HEIGHT */
+                        /* Adjust this height to what looks best for most of your images
+                        and provides a consistent viewing box. This will define the
+                        aspect ratio of the viewing box along with max-width. */
+        object-fit: cover; /* Will fill the 300x250 (max) box, cropping if necessary */
+        border-radius: 12px;
+        margin: 0 auto 20px auto; /* Top/bottom margin, auto left/right for centering */
+    }
+
+    .product-title-price {
+        display: flex;
+        justify-content: flex-start; /* Changed from space-between */
+        align-items: baseline;       /* Align by text baseline */
+        margin-bottom: 15px;
+    }
+
+    #product-name {
+        font-family: "Vidaloka", serif;
+        font-size: 1.9em;
+        color: #FFF8DC;
+        font-weight: 400;
+        margin: 0;
+        text-align: left;
+        margin-right: 20px; /* Space between name and price */
+    }
+
+    .product-price-tag {
+        font-family: "Vidaloka", serif;
+        font-size: 1.6em;
+        color: #FFF8DC;
+        font-weight: 400;
+        white-space: nowrap;
+        padding-left: 0;     /* Removed previous padding */
+        margin-left: auto;   /* Pushes price to the right after name */
+    }
+
+    .product-description-text {
+        font-family: "Ancizar Serif", serif;
+        font-size: 0.95em;
+        line-height: 1.6;
+        color: #e0e0e0;
+        margin-bottom: 25px;
+        text-align: left;
+    }
+
+}

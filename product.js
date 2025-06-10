@@ -5,7 +5,7 @@ const dishesData = [
     {
         id: "peking-duck",
         name: "Peking Duck",
-        price: "$17",
+        price: 17,
         imageSrc: "top-view-traditional-asian-food-peking-duck-with-cucumbers-sauce-plate.jpg",
         description: "Succulent roasted duck, provided with Chinese pancakes, cucumbers and scallions.",
         toppings: ["Chilli", "Cucumber", "Pancake","Scallions", "Hoisin Sauce"]
@@ -13,7 +13,7 @@ const dishesData = [
     {
         id: "taro-duck",
         name: "Deep Fried Taro Duck",
-        price: "$28",
+        price: 28,
         imageSrc: "duckduck-Photoroom.png", // Replace with actual image
         description: "Crispy deep-fried duck with a layer of savory taro paste. A unique and flavourful specialty.",
         toppings: ["Chilli", "Taro Sauce", "Lettuce Cups"]
@@ -21,7 +21,7 @@ const dishesData = [
     {
         id: "sweet-sour-pork",
         name: "Sweet and Sour Pork",
-        price: "$21",
+        price: 21,
         imageSrc: "sasp.jpg",
         description: "Juicy pork served in sweet and sour sauce. Servcd with mixed vegetables and rice",
         toppings: ["Carrots", "Peppers", "Sauce", "Rice"]
@@ -29,7 +29,7 @@ const dishesData = [
     {
         id: "crispy-roast-pork",
         name: "Crispy Roast Pork",
-        price: "$23",
+        price: 23,
         imageSrc: "crispypork.jpg",
         description: "Cantonese-style siu yuk with incredibly crispy skin and tender juicy meat beneath.",
         toppings: ["Hoisin Dip", "Mustard Dip", "Rice"]
@@ -37,7 +37,7 @@ const dishesData = [
     {
         id: "stir-fried-pork",
         name: "Stir Fried Pork",
-        price: "$20",
+        price: 20,
         imageSrc: "sfpork.jpg",
         description: "Tender slices of pork stir-fried with fresh vegetables in a savory sauce.",
         toppings: ["Chilli", "Mixed Vegetables", "Peppers", "Soy Sauce", "Rice"]

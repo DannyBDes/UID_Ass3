@@ -56,98 +56,101 @@ const dishesData = [
 // --- JAVASCRIPT LOGIC ---
 document.addEventListener('DOMContentLoaded', () => {
     const productImage = document.getElementById('product-image');
-    const productName = document.getElementById('product-name');
-    const productPrice = document.getElementById('product-price');
+    const productNameEl = document.getElementById('product-name');
+    const productPriceEl = document.getElementById('product-price');
     const productDescription = document.getElementById('product-description');
     const toppingsListContainer = document.getElementById('product-toppings-list');
     const addToCartButton = document.getElementById('add-to-cart-button');
     const closeButtons = document.querySelectorAll('.product-close-button');
 
-    // Get dish ID from URL query parameter
     const urlParams = new URLSearchParams(window.location.search);
     const dishId = urlParams.get('dish');
-
-    // Find the dish data
     const currentDish = dishesData.find(dish => dish.id === dishId);
 
     if (currentDish) {
-        document.title = `${currentDish.name} - Golden Dragon`; // Update page title
-        if (productImage) productImage.src = currentDish.imageSrc;
-        if (productImage) productImage.alt = currentDish.name;
-        if (productName) productName.textContent = currentDish.name;
-        if (productPrice) productPrice.textContent = currentDish.price;
+        document.title = `${currentDish.name} - Golden Dragon`;
+        if (productImage) { productImage.src = currentDish.imageSrc; productImage.alt = currentDish.name; }
+        if (productNameEl) productNameEl.textContent = currentDish.name;
+        if (productPriceEl) productPriceEl.textContent = `$${currentDish.price}`;
         if (productDescription) productDescription.textContent = currentDish.description;
 
-        // Populate toppings with checkboxes
         if (toppingsListContainer) {
-            toppingsListContainer.innerHTML = ''; // Clear any existing
-            const toppingsHeading = document.querySelector('.toppings-heading'); // Get heading element
-
+            toppingsListContainer.innerHTML = '';
+            const toppingsHeading = document.querySelector('.toppings-heading');
             if (currentDish.toppings && currentDish.toppings.length > 0) {
-                if (toppingsHeading) toppingsHeading.style.display = 'block'; // Show heading
-
+                if (toppingsHeading) toppingsHeading.style.display = 'block';
                 const ul = document.createElement('ul');
                 currentDish.toppings.forEach((topping, index) => {
                     const li = document.createElement('li');
-
-                    // Create checkbox
                     const checkbox = document.createElement('input');
                     checkbox.type = 'checkbox';
-                    checkbox.id = `topping-${currentDish.id}-${index}`; // Unique ID for the checkbox
+                    checkbox.id = `topping-${currentDish.id}-${index}`;
                     checkbox.name = 'toppings';
                     checkbox.value = topping;
-                    checkbox.checked = true; // DEFAULT TO CHECKED
-
-                    // Create label for checkbox
+                    checkbox.checked = true; // Default to checked
                     const label = document.createElement('label');
                     label.htmlFor = checkbox.id;
                     label.textContent = topping;
-
                     li.appendChild(checkbox);
                     li.appendChild(label);
                     ul.appendChild(li);
                 });
                 toppingsListContainer.appendChild(ul);
             } else {
-                if (toppingsHeading) toppingsHeading.style.display = 'none'; // Hide heading if no toppings
+                if (toppingsHeading) toppingsHeading.style.display = 'none';
             }
         }
-
 
         if (addToCartButton) {
             addToCartButton.addEventListener('click', () => {
                 const selectedToppings = [];
-                if (toppingsListContainer) { // Check if toppingsListContainer exists
+                if (toppingsListContainer) {
                     const checkboxes = toppingsListContainer.querySelectorAll('input[type="checkbox"]:checked');
                     checkboxes.forEach(checkbox => {
                         selectedToppings.push(checkbox.value);
                     });
                 }
-                // Log selected toppings or use them in an alert
-                console.log("Selected toppings:", selectedToppings);
-                alert(`${currentDish.name} added to cart${selectedToppings.length > 0 ? ' with toppings: ' + selectedToppings.join(', ') : ''}. (Functionality to be implemented)`);
-                // Here you would add actual cart logic
+
+                const cartItemId = `${currentDish.id}-${Date.now()}-${selectedToppings.join('-').replace(/\s+/g, '').substring(0,10)}`;
+
+                const cartItem = {
+                    cartItemId: cartItemId,
+                    productId: currentDish.id,
+                    name: currentDish.name,
+                    pricePerItem: currentDish.price,
+                    quantity: 1, // Each add creates a new distinct item for simplicity here
+                    imageSrc: currentDish.imageSrc,
+                    selectedToppings: selectedToppings
+                };
+
+                let cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
+                cart.push(cartItem);
+                localStorage.setItem('shoppingCart', JSON.stringify(cart));
+
+                // Update cart item count for the badge
+                localStorage.setItem('cartItemCount', cart.length.toString());
+
+                alert(`${currentDish.name} added to cart${selectedToppings.length > 0 ? ' with toppings: ' + selectedToppings.join(', ') : ''}.`);
+                
+                // Redirect back to menu page
+                window.location.href = 'menu.html';
             });
         }
 
     } else {
-        // Handle case where dish is not found
         const productContainer = document.querySelector('.product-details-container');
         if (productContainer) {
-            productContainer.innerHTML =
-                '<p class="product-not-found">Sorry, this dish could not be found. <a href="menupage.html">Return to Menu</a></p>';
+            productContainer.innerHTML = '<p class="product-not-found">Sorry, this dish could not be found. <a href="menu.html">Return to Menu</a></p>';
         }
     }
 
-    // Close button functionality
     if (closeButtons) {
         closeButtons.forEach(button => {
             button.addEventListener('click', () => {
-                // Go back to the menu or previous page
-                if (document.referrer && document.referrer.includes('menupage.html')) {
+                if (document.referrer && document.referrer.includes('menu.html')) {
                     window.history.back();
                 } else {
-                    window.location.href = 'menupage.html';
+                    window.location.href = 'menu.html';
                 }
             });
         });

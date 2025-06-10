@@ -76,9 +76,15 @@
         <nav class="footer-nav">
             <a href="index.html" class="nav-item active" data-target="index.html"><i class="fas fa-home"></i></a>
             <a href="menupage.html" class="nav-item" data-target="menupage.html"><i class="fas fa-utensils"></i></a>
-            <a href="order.html" class="nav-item" data-target="order.html"><i class="fas fa-shopping-cart"></i></a>
+            <a href="shoppingcart.html" class="nav-item nav-item-cart" data-target="shoppingcart.html">
+                <span class="cart-icon-wrapper"> <!-- <<<< ADDED THIS WRAPPER SPAN -->
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-badge" style="display: none;">0</span>
+                </span>                               <!-- <<<< END OF WRAPPER SPAN -->
+            </a>
         </nav>
     </footer>
 
+    <script src="gdl.js" defer></script>
 </body>
 </html>

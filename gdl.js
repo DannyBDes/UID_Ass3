@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const issuesSection = document.querySelector('.issues-call-section');
 
         if (cart.length === 0) {
-            cartItemsContainer.innerHTML = '<p class="cart-empty-message">Your shopping cart is empty. <a href="menu.html">Continue Shopping</a></p>';
+            cartItemsContainer.innerHTML = '<p class="cart-empty-message">Your shopping cart is empty. <a href="menupage.html">Continue Shopping</a></p>';
             cartTotalPriceElement.textContent = '$0';
             if (cartSectionTitle) cartSectionTitle.textContent = "Your Cart is Empty";
             if (totalSection) totalSection.classList.add('hidden');

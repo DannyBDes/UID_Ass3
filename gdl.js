@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const productContainer = document.querySelector('.product-details-container');
         if (productContainer) {
             productContainer.innerHTML =
-                '<p class="product-not-found">Sorry, this dish could not be found. <a href="menu.html">Return to Menu</a></p>';
+                '<p class="product-not-found">Sorry, this dish could not be found. <a href="menupage.html">Return to Menu</a></p>';
         }
     }
 
@@ -144,10 +144,10 @@ document.addEventListener('DOMContentLoaded', () => {
         closeButtons.forEach(button => {
             button.addEventListener('click', () => {
                 // Go back to the menu or previous page
-                if (document.referrer && document.referrer.includes('menu.html')) {
+                if (document.referrer && document.referrer.includes('menupage.html')) {
                     window.history.back();
                 } else {
-                    window.location.href = 'menu.html';
+                    window.location.href = 'menupage.html';
                 }
             });
         });

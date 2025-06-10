@@ -1,6 +1,6 @@
 // --- DISH DATA ---
 // This is where you'll add data for all your dishes.
-// Make sure the 'id' matches the query parameter from menu.html (e.g., 'peking-duck')
+// Make sure the 'id' matches the query parameter from menupage.html (e.g., 'peking-duck')
 const dishesData = [
     {
         id: "peking-duck",
@@ -133,24 +133,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 alert(`${currentDish.name} added to cart${selectedToppings.length > 0 ? ' with toppings: ' + selectedToppings.join(', ') : ''}.`);
                 
                 // Redirect back to menu page
-                window.location.href = 'menu.html';
+                window.location.href = 'menupage.html';
             });
         }
 
     } else {
         const productContainer = document.querySelector('.product-details-container');
         if (productContainer) {
-            productContainer.innerHTML = '<p class="product-not-found">Sorry, this dish could not be found. <a href="menu.html">Return to Menu</a></p>';
+            productContainer.innerHTML = '<p class="product-not-found">Sorry, this dish could not be found. <a href="menupage.html">Return to Menu</a></p>';
         }
     }
 
     if (closeButtons) {
         closeButtons.forEach(button => {
             button.addEventListener('click', () => {
-                if (document.referrer && document.referrer.includes('menu.html')) {
+                if (document.referrer && document.referrer.includes('menupage.html')) {
                     window.history.back();
                 } else {
-                    window.location.href = 'menu.html';
+                    window.location.href = 'menupage.html';
                 }
             });
         });

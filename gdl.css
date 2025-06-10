@@ -1,38 +1,116 @@
 /* --- GLOBAL RESETS & BOX SIZING --- */
 html {
     box-sizing: border-box;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased; /* Optional: for smoother fonts */
+    -moz-osx-font-smoothing: grayscale; /* Optional: for smoother fonts */
 }
 
-*, *::before, *::after {
-    box-sizing: inherit;
+*,
+*::before,
+*::after {
+    box-sizing: inherit; /* Inherit box-sizing from html */
 }
+
 @media (min-width: 390px) {
+    /* --- GLOBAL BODY STYLES --- */
     body {
         margin: 0;
-        font-family: "Varta", sans-serif;
+        padding: 0;
+        font-family: "Ancizar Serif", serif;
         font-optical-sizing: auto;
-        font-weight: 4;
         font-style: normal;
-        color: #333;
-        background-color: #fff;
+        color: #333; /* Default text color for the page */
+        background-color: #fff; /* Default page background */
+        overflow-x: hidden;
     }
 
+    /* --- STICKY FOOTER FLEX MODEL (for menu.html, prod.html (modal body), cart.html) --- */
+    body:not(.homepage):not(.product-page-body) {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        padding-bottom: 55px; /* Space for the 55px fixed footer height */
+    }
+
+    body:not(.homepage):not(.product-page-body) > header,
+    body:not(.homepage):not(.product-page-body) > .menu-search-section,
+    body:not(.homepage):not(.product-page-body) > .menu-page-title-container,
+    body:not(.homepage):not(.product-page-body) > .page-banner.cart-banner {
+        flex-shrink: 0;
+    }
+
+    body:not(.homepage):not(.product-page-body) > main {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* --- HOMEPAGE BODY & MAIN OVERRIDE --- */
+    body.homepage {
+        display: block; /* Standard block flow */
+        position: relative;
+        padding-bottom: 55px; /* Space for the 55px fixed footer. */
+        min-height: calc(100vh - 55px); /* Optional: ensure content area fills viewport minus footer */
+    }
+
+    body.homepage > main {
+        display: block; /* Standard block flow */
+        /* No flex-grow needed */
+    }
+
+    /* --- PRODUCT PAGE BODY OVERRIDE (for modal-like appearance) --- */
+    body.product-page-body {
+        display: block;
+        background-color: rgba(0, 0, 0, 0.75);
+        height: 100vh;
+        overflow: hidden; /* Body itself shouldn't scroll if modal is sized for viewport */
+        padding: 0; /* Reset body padding for full overlay */
+        /* Footer is hidden on this page */
+    }
+
+    body.product-page-body::before { /* Blurred background for product page */
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: -1;
+        background-image: url('path/to/your/menu-background-blurry.jpg'); /* <<< REPLACE */
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        filter: blur(8px);
+    }
+
+
+    /* --- HEADER STYLES (COMMON) --- */
     header {
-        background-color: #8B0000;
+        background-color: #8B0000; /* Dark Red */
         padding: 10px 0;
         text-align: center;
-        height: 60px; /* Fixed height for the header */
+        height: 60px;
         display: flex;
         align-items: center;
         justify-content: center;
         width: 100%;
+        position: relative;
+        z-index: 1001;
     }
 
-    .logo-container { display: flex; align-items: center; justify-content: center; }
-    .header-logo { 
-        height: 100px;
+    body.product-page-body > header { /* Hide header on product page modal view */
+        display: none;
+    }
+
+    .logo-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .header-logo {
+        height: 50px;
+        width: auto;
     }
 
     /* --- HOMEPAGE SPECIFIC STYLES --- */
@@ -77,7 +155,7 @@ html {
     }
 
     .order-button {
-        background-color: #A52A2A; 
+        background-color: #A52A2A; /* Brownish Red */
         color: white;
         border: none;
         padding: 15px 40px;
@@ -88,484 +166,867 @@ html {
         font-family: "Ancizar Serif", serif;
     }
 
-    .recommended-dishes, .about-us, .contact-us {
+    .recommended-dishes,
+    .about-us {
         padding: 30px 20px;
         text-align: center;
     }
 
-    .recommended-dishes h2, .about-us h2, .contact-us h2 {
+    .recommended-dishes h2,
+    .about-us h2,
+    .contact-us h2 { /* General H2 style for these sections */
         font-size: 1.8em;
         margin-bottom: 20px;
         font-family: "Vidaloka", serif;
         font-weight: 400;
         font-style: normal;
-        /*color: #333; */
     }
 
-    .recommended-dishes h2, .about-us h2 { 
-        color: #333;  
+    .recommended-dishes h2,
+    .about-us h2 { /* Specific color for light backgrounds */
+        color: #333;
     }
 
-    .dishes-container {
+    /* HOMEPAGE "RECOMMENDED DISHES" SPECIFIC STYLES */
+    body.homepage .recommended-dishes > .dishes-container {
         display: flex;
         justify-content: space-around;
         flex-wrap: wrap;
         gap: 15px;
     }
 
-    /* This rule is for the homepage-style dish items */
-    .dishes-container:not(.menu-page-dishes) > .dish-item { /* More specific to homepage style */
-        background-color: #f9f9f9; 
-        border-radius: 8px; 
-        width: calc(33.333% - 20px); /* Adjust based on gap for 3 items per row, from original */
-        min-width: 100px; 
-        box-sizing: border-box; 
-        margin-bottom: 15px; 
-        text-align: center; /* Ensuring content like text is centered */
-    }
-    .dishes-container:not(.menu-page-dishes) > .dish-item img { /* Homepage dish item image */
-        width: 100%; 
-        height: auto; 
-        border-top-left-radius: 8px; 
-        border-top-right-radius: 8px; 
-        aspect-ratio: 1 / 1; 
-        object-fit: cover; 
-    }
-    .dishes-container:not(.menu-page-dishes) > .dish-item p { /* Homepage dish item text */
-        font-size: 0.9em; 
-        font-weight: bold; 
-        margin: 10px 0 5px; 
-        color: #555; 
-    }
-    .dishes-container:not(.menu-page-dishes) > .dish-item span { /* Homepage dish item price */
-        font-size: 0.9em; 
-        color: #888; 
-        display: block; 
-        margin-bottom: 10px; 
+    body.homepage .recommended-dishes > .dishes-container > .dish-item {
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        width: calc(33.333% - 20px);
+        min-width: 100px;
+        margin-bottom: 15px;
+        text-align: center;
     }
 
-    .about-us p { 
-        font-size: 1em; 
-        line-height: 1.6; 
-        color: #555; 
-        margin-bottom: 20px; 
-        text-align: left; 
-        padding: 0 10px; 
+    body.homepage .recommended-dishes > .dishes-container > .dish-item img {
+        width: 100%;
+        height: auto;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
     }
-    .about-us img { 
-        width: 100%; 
-        max-width: 600px; 
-        height: auto; 
-        border-radius: 8px; 
-        margin-top: 10px; 
+
+    body.homepage .recommended-dishes > .dishes-container > .dish-item p {
+        font-size: 0.9em;
+        font-weight: bold;
+        margin: 10px 0 5px;
+        color: #555;
+    }
+
+    body.homepage .recommended-dishes > .dishes-container > .dish-item span {
+        font-size: 0.9em;
+        color: #888;
+        display: block;
+        margin-bottom: 10px;
     }
 
 
-     /* --- STYLES FOR MENU PAGE (Initial Additions + Horizontal Scroll for Dishes) --- */
-     .menu-search-section { 
-        background-color: #5a0e0e; 
-        padding: 15px 20px; 
-        display: flex; 
-        justify-content: center; 
-        align-items: center; 
+    .about-us p {
+        font-size: 1em;
+        line-height: 1.6;
+        color: #555;
+        margin-bottom: 20px;
+        text-align: left;
+        padding: 0 10px;
     }
-     .menu-search-bar-container { 
-        background-color: #4A2A2A; 
-        border-radius: 25px; 
-        padding: 10px 18px; 
-        display: flex; 
-        align-items: center; 
-        width: 100%; 
-        max-width: 350px; 
+
+    .about-us img {
+        width: 100%;
+        max-width: 600px;
+        height: auto;
+        border-radius: 8px;
+        margin-top: 10px;
     }
-     .menu-search-bar-container .search-icon-menu { 
+
+    /* --- MENU PAGE SPECIFIC STYLES --- */
+    .menu-search-section {
+        background-color: #5a0e0e; /* Dark Taupe/Brown */
+        padding: 15px 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+
+    .menu-search-bar-container {
+        background-color: #4A2A2A;
+        border-radius: 25px;
+        padding: 10px 18px;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        max-width: 350px;
+    }
+
+    .menu-search-bar-container .search-icon-menu {
         color: #FAF0E6; 
-        margin-right: 12px; 
-        font-size: 1em; 
+        margin-right: 12px;
+        font-size: 1em;
     }
-     .menu-search-bar-container input { 
-        border: none; 
-        background: transparent; 
-        outline: none; 
-        flex-grow: 1; 
-        font-family: "Ancizar Serif", serif; 
-        font-size: 1em; 
-        color: #333; 
+
+    .menu-search-bar-container input {
+        border: none;
+        background: transparent;
+        outline: none;
+        flex-grow: 1;
+        font-family: "Ancizar Serif", serif;
+        font-size: 1em;
+        color: #333333;
     }
-     .menu-search-bar-container input::placeholder { 
-        color: #FAF0E6; 
-        font-family: "Ancizar Serif", serif; 
+
+    .menu-search-bar-container input::placeholder {
+        color: #FAF0E6; /* Medium Grey placeholder */
+        font-family: "Ancizar Serif", serif;
     }
- 
-     .menu-page-title-container { 
-        background-color: #C7A07A; 
-        padding: 20px 20px; 
-        text-align: center; 
+
+    .menu-page-title-container {
+        background-color: #C7A07A; /* Tan/Muted Gold */
+        padding: 20px 20px;
+        text-align: center;
+        width: 100%;
     }
-     .menu-page-title-container h1 { 
-        font-family: "Vidaloka", serif; 
-        font-size: 2.5em; 
-        color: #FFFFFF; 
-        margin: 0; 
-        font-weight: 400; 
-        font-style: normal; 
+
+    .menu-page-title-container h1 {
+        font-family: "Vidaloka", serif;
+        font-size: 2.5em;
+        color: #FAF0E6; /* Linen/Off-White */
+        margin: 0;
+        font-weight: 400;
+        font-style: normal;
     }
- 
-     .menu-page-main-content { 
-        background-color: #401515; 
-        padding: 25px 20px; 
-        color: white; 
+
+    main.menu-page-main-content {
+        background-color: #401515;
+        padding: 25px 20px;
+        color: white;
     }
-     .menu-page-main-content .food-category { 
-        margin-bottom: 35px; 
+
+    main.menu-page-main-content .food-category {
+        margin-bottom: 35px;
     }
-     .menu-page-main-content .food-category:last-child { 
-        margin-bottom: 0; 
+
+    main.menu-page-main-content .food-category:last-child {
+        margin-bottom: 0;
     }
-     .menu-page-main-content .food-category h2 { 
-        font-family: "Vidaloka", serif; 
-        font-size: 2em; 
-        color: white; 
-        margin-bottom: 20px; 
-        padding-left: 0; 
-        text-align: left; 
-        font-weight: 400; 
-        font-style: normal; 
+
+    main.menu-page-main-content .food-category h2 {
+        font-family: "Vidaloka", serif;
+        font-size: 2em;
+        color: white;
+        margin-bottom: 20px;
+        padding-left: 0;
+        text-align: left;
+        font-weight: 400;
+        font-style: normal;
     }
- 
-     /* Dishes container on Menu Page - WITH HORIZONTAL SCROLLING */
-     .dishes-container.menu-page-dishes {
-         display: flex;
-         flex-wrap: nowrap;   /* Items stay on one line */
-         overflow-x: auto;   /* Enable horizontal scrolling */
-         overflow-y: hidden; /* Hide vertical scrollbar */
-         padding-bottom: 10px; /* Space for scrollbar */
-         justify-content: flex-start; /* Align items to the start */
-         gap: 20px;
-         -webkit-overflow-scrolling: touch;
-         scrollbar-width: thin;
-         scrollbar-color: #888 #401515;
-     }
-     .dishes-container.menu-page-dishes::-webkit-scrollbar { 
-        height: 8px; 
+
+    .dishes-container.menu-page-dishes {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding-bottom: 10px;
+        justify-content: flex-start;
+        gap: 20px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+        scrollbar-color: #888 #401515;
     }
-     .dishes-container.menu-page-dishes::-webkit-scrollbar-track { 
-        background: #401515; 
-        border-radius: 4px; 
+
+    .dishes-container.menu-page-dishes::-webkit-scrollbar {
+        height: 8px;
     }
-     .dishes-container.menu-page-dishes::-webkit-scrollbar-thumb { 
-        background-color: #888; 
-        border-radius: 4px; 
-        border: 2px solid #401515; 
+
+    .dishes-container.menu-page-dishes::-webkit-scrollbar-track {
+        background: #401515;
+        border-radius: 4px;
     }
- 
-     /* Dish items on Menu Page (as <a> tags) */
-     a.dish-item.menu-dish-item {
-         color: inherit; 
-         text-decoration: none; 
-         display: block;
-         flex-shrink: 0; /* Prevent items from shrinking */
-         background-color: transparent; 
-         position: relative; 
-         border-radius: 12px; 
-         overflow: hidden;
-         width: 160px;
-         height: 160px; 
-         box-shadow: 0 4px 8px rgba(0,0,0,0.25);
+
+    .dishes-container.menu-page-dishes::-webkit-scrollbar-thumb {
+        background-color: #888;
+        border-radius: 4px;
+        border: 2px solid #401515;
     }
-     a.dish-item.menu-dish-item img { 
-        width: 100%; 
+
+    a.dish-item.menu-dish-item {
+        color: inherit;
+        text-decoration: none;
+        display: block;
+        flex-shrink: 0;
+        background-color: transparent;
+        position: relative;
+        border-radius: 12px;
+        overflow: hidden;
+        width: 160px;
+        height: 160px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.25);
+    }
+
+    a.dish-item.menu-dish-item img {
+        width: 100%;
         height: 100%;
-        object-fit: cover; 
-        display: block; 
-    }
-     a.dish-item.menu-dish-item .dish-info-overlay { 
-        position: absolute; 
-        bottom: 0; 
-        left: 0; 
-        right: 0; 
-        background: linear-gradient(to top, rgba(0,0,0,0.9) 25%, rgba(0,0,0,0.7) 60%, rgba(0,0,0,0) 100%); 
-        padding: 15px 12px 10px 12px; 
-        color: white; 
-        text-align: left; 
-        border-bottom-left-radius: 12px; 
-        border-bottom-right-radius: 12px; 
-        box-sizing: border-box; 
-    }
-     a.dish-item.menu-dish-item .dish-info-overlay p { 
-        font-family: "Ancizar Serif", serif; 
-        font-size: 0.9em; 
-        font-weight: bold; 
-        margin: 0 0 5px 0; 
-        color: #fff; 
-        line-height: 1.2; 
-    }
-     a.dish-item.menu-dish-item .dish-info-overlay span { 
-        font-family: "Ancizar Serif", serif; 
-        font-size: 0.85em; 
-        font-weight: normal; 
-        color: #e0e0e0; 
-        display: block; 
-        margin: 0; 
-    }
- 
- 
-     /* --- COMMON: CONTACT US SECTION --- */
-     .contact-us {
-         background-color: #333333; /* Dark Gray, from original */
-         color: #f0f0f0; 
-         padding: 30px 20px; /* Base padding from original */
-         text-align: center; /* Added for menu page consistency, good general rule */
-         width: 100%; /* Ensure it takes full width */
-         /* Adjust padding-bottom to make space for the fixed footer */
-         /* Footer height (e.g., 55px) + some extra space (e.g., 15px) = 70px */
-         /* Or, 30px internal + 55px footer = 85px */
-         padding-bottom: 85px; /* From original, for footer gap */
-     }
-     .contact-us h2 { /* From grouped H2 */
-         color: #f0f0f0; /* From original, for light text on dark bg */
-         font-family: "Vidaloka", serif; 
-         font-weight: 400; 
-         font-style: normal; 
-     }
-     .contact-us p {
-         font-size: 0.9em; 
-         margin: 8px 0; 
-         font-family: "Vidaloka", serif; 
-         font-weight: 400; 
-         font-style: normal; 
-     }
- 
-     /* --- COMMON: SOCIAL ICONS --- */
-     .social-icons { 
-        margin-top: 20px;  
-    }
-     .social-icons a { 
-        color: #f0f0f0; 
-        font-size: 1.5em; 
-        margin: 0 10px; 
-        text-decoration: none;  
-    }
-     .social-icons a:hover { 
-        color: #FFD700; /* Gold, from original */ 
-    }
- 
-     /* --- COMMON: FOOTER STYLES --- */
-     footer {
-         position: fixed; 
-         bottom: 0; 
-         left: 0; 
-         width: 100%; 
-         box-shadow: 0 -2px 5px rgba(0,0,0,0.1); /* Optional: subtle shadow, from original */
-         z-index: 1000; /* Ensure footer is above other content, from original */
-     }
-     .footer-nav {
-         display: flex; 
-         height: 55px; 
-         background-color: #A91F1F; /* Parent background for gap filling */
-     }
-     .footer-nav .nav-item {
-         flex-grow: 1; /* Each item takes equal width, from original */
-         display: flex; 
-         justify-content: center; 
-         align-items: center; 
-         text-decoration: none; 
-         color: white; 
-         font-size: 1.7em; 
-         background-color: #A91F1F; /* Default INACTIVE background (brighter red), from original */
-         cursor: pointer; 
-         transition: background-color 0.2s ease-in-out; 
-         border: 0 solid transparent; /* Fix for tiny gaps */
-         margin: 0; /* Fix for tiny gaps */
-         padding: 0; /* Fix for tiny gaps */
-         outline: 1px solid transparent; /* Fix for tiny gaps */
-     }
-     .footer-nav .nav-item.active {
-         background-color: #5C1A1A; /* ACTIVE background (darker red for active icon), from original */
-     }
-     .footer-nav .nav-item:hover:not(.active) {
-         background-color: #c82f2f; /* Slightly brighter/different red for hover on inactive items, from original */
-     }
-
-    /* --- PRODUCT DETAILS PAGE (product.html) --- */
-    /* Hiding search bar on product page by default, can be overridden if needed */
-    .product-page-search-override {
-        display: none; /* Or style it to be less prominent */
+        object-fit: cover;
+        display: block;
     }
 
-    /* Body adjustments for product page if needed (e.g., different default background if not covered)
-    The main container will have the dark background. */
-    body:has(.product-details-container) {
-        /* background-color: #401515; /* If the whole page should be dark, even outside modal */
+    a.dish-item.menu-dish-item .dish-info-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(to top, rgba(0,0,0,0.9) 25%, rgba(0,0,0,0.7) 60%, rgba(0,0,0,0) 100%);
+        padding: 15px 12px 10px 12px;
+        color: white;
+        text-align: left;
+        border-bottom-left-radius: 12px;
+        border-bottom-right-radius: 12px;
+        box-sizing: border-box;
+    }
+
+    a.dish-item.menu-dish-item .dish-info-overlay p {
+        font-family: "Ancizar Serif", serif;
+        font-size: 0.9em;
+        font-weight: bold;
+        margin: 0 0 5px 0;
+        color: #fff;
+        line-height: 1.2;
+    }
+
+    a.dish-item.menu-dish-item .dish-info-overlay span {
+        font-family: "Ancizar Serif", serif;
+        font-size: 0.85em;
+        font-weight: normal;
+        color: #e0e0e0;
+        display: block;
+        margin: 0;
+    }
+
+    .dish-item-hidden {
+        display: none !important;
     }
 
 
-    .product-details-container {
-        background-color: #401515; /* Dark reddish-brown from menu page */
-        color: #f0f0f0; /* Light text color */
+    /* --- PRODUCT DETAILS PAGE (prod.html) --- */
+    main.product-details-container {
+        background-color: #5C1A1A; /* Darker, muted red */
+        color: #f0f0f0;
         padding: 20px;
-        padding-top: 50px; /* Space for the top close button */
-        margin: 0 auto; /* Centering if max-width is applied */
-        /* max-width: 450px; /* Optional: constrain width on larger screens */
-        position: relative; /* For absolute positioning of top close button */
-        min-height: calc(100vh - 60px - 0px); /* (Viewport - header - search_if_visible). Adjust if search is visible */
+        padding-top: 45px;
+        width: 90%;
+        max-width: 400px;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 12px;
+        box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+        z-index: 1005;
         display: flex;
         flex-direction: column;
-    }
-
-    .product-close-button {
-        background-color: transparent;
-        border: none;
-        color: #f0f0f0; /* Light color for X */
-        font-size: 1.8em;
-        cursor: pointer;
-        padding: 5px;
-        line-height: 1;
+        max-height: 85vh;
+        overflow-y: auto;
     }
 
     .product-close-button.top-close-button {
         position: absolute;
-        top: 15px;
-        right: 15px;
+        top: 12px;
+        right: 12px;
+        background-color: transparent;
+        border: none;
+        color: #FFFFFF;
+        font-size: 1.8em;
+        font-weight: lighter;
+        line-height: 1;
+        padding: 5px;
+        cursor: pointer;
         z-index: 10;
+        opacity: 0.8;
+        transition: opacity 0.2s ease-in-out;
+    }
+
+    .product-close-button.top-close-button:hover {
+        opacity: 1;
     }
 
     .product-main-image {
-        display: block; /* Ensures margin auto works for centering */
-        width: 100%;    /* Start by taking full available width within its constraints */
-        max-width: 300px; /* Maximum width it can be */
-        height: 250px;  /* <<< SET AN EXPLICIT HEIGHT */
-                        /* Adjust this height to what looks best for most of your images
-                        and provides a consistent viewing box. This will define the
-                        aspect ratio of the viewing box along with max-width. */
-        object-fit: cover; /* Will fill the 300x250 (max) box, cropping if necessary */
-        border-radius: 12px;
-        margin: 0 auto 20px auto; /* Top/bottom margin, auto left/right for centering */
+        display: block;
+        width: 100%;
+        max-width: 250px;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 8px;
+        margin: 0 auto 15px auto;
     }
 
     .product-title-price {
         display: flex;
-        justify-content: flex-start; /* Changed from space-between */
-        align-items: baseline;       /* Align by text baseline */
-        margin-bottom: 15px;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 10px;
+        padding: 0 5px;
     }
 
     #product-name {
         font-family: "Vidaloka", serif;
-        font-size: 1.9em;
+        font-size: 1.7em;
         color: #FFF8DC;
         font-weight: 400;
         margin: 0;
         text-align: left;
-        margin-right: 20px; /* Space between name and price */
+        flex-grow: 1;
+        margin-right: 10px;
     }
 
     .product-price-tag {
         font-family: "Vidaloka", serif;
-        font-size: 1.6em;
+        font-size: 1.5em;
         color: #FFF8DC;
         font-weight: 400;
         white-space: nowrap;
-        padding-left: 0;     /* Removed previous padding */
-        margin-left: auto;   /* Pushes price to the right after name */
+        flex-shrink: 0;
     }
 
     .product-description-text {
         font-family: "Ancizar Serif", serif;
-        font-size: 0.95em;
-        line-height: 1.6;
+        font-size: 0.9em;
+        line-height: 1.5;
         color: #e0e0e0;
-        margin-bottom: 25px;
+        margin-bottom: 20px;
         text-align: left;
+        padding: 0 5px;
     }
 
     .toppings-heading {
         font-family: "Vidaloka", serif;
-        font-size: 1.5em;
+        font-size: 1.3em;
         color: #FFF8DC;
-        margin-bottom: 10px;
+        margin-bottom: 8px;
         text-align: left;
+        padding: 0 5px;
     }
 
-    /* MODIFIED/NEW STYLES FOR TOPPINGS CHECKBOXES */
     .toppings-list-container ul {
         list-style: none;
-        padding: 0;
-        margin: 0 0 30px 0;
+        padding: 0 5px;
+        margin: 0 0 20px 0;
         display: flex;
         flex-wrap: wrap;
-        gap: 10px 20px; /* row-gap column-gap */
+        gap: 8px 15px;
     }
 
     .toppings-list-container li {
         font-family: "Ancizar Serif", serif;
-        font-size: 0.95em;
+        font-size: 0.9em;
         color: #e0e0e0;
         display: flex;
         align-items: center;
-        width: calc(50% - 10px); /* For two columns, adjust based on column-gap (20px/2) */
+        width: calc(50% - 8px); /* Adjusted for gap */
     }
 
     .toppings-list-container input[type="checkbox"] {
-        margin-right: 8px;
-        accent-color: #A52A2A; /* Styles checkmark/background of checked state */
-        width: 16px;
-        height: 16px;
+        margin-right: 6px;
+        accent-color: #C7A07A; /* Tan checkmark */
+        width: 15px;
+        height: 15px;
         cursor: pointer;
-        flex-shrink: 0; /* Prevent checkbox from shrinking */
+        flex-shrink: 0;
     }
 
     .toppings-list-container label {
         cursor: pointer;
-        flex-grow: 1; /* Allow label text to take space and wrap if needed */
+        flex-grow: 1;
     }
-    /* END OF MODIFIED/NEW STYLES FOR TOPPINGS CHECKBOXES */
 
     .product-actions {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-top: auto; /* Pushes actions to the bottom */
-        padding-top: 20px;
+        margin-top: auto;
+        padding: 15px 5px 5px 5px;
         width: 100%;
+        border-top: 1px solid #702020; /* Darker red separator */
     }
 
     .product-close-button.circular-close-button {
-        background-color: #777;
-        color: white;
-        border-radius: 50%;
-        width: 50px;
-        height: 50px;
-        font-size: 1.5em;
+        background-color: transparent;
+        color: #AAAAAA; /* Grey 'X' */
+        font-size: 1.8em;
         display: flex;
         justify-content: center;
         align-items: center;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        margin-right: 15px;
+        padding: 5px;
+        cursor: pointer;
+        border: none;
+        opacity: 0.8;
+        transition: opacity 0.2s ease-in-out;
+    }
+
+    .product-close-button.circular-close-button:hover {
+        opacity: 1;
+        color: #777777;
     }
 
     .add-to-cart-btn {
-        background-color: #A52A2A;
-        color: white;
+        background-color: #C7A07A; /* Tan/Muted Gold */
+        color: #401515; /* Dark text for contrast */
         border: none;
-        padding: 15px 0;
-        font-size: 1.1em;
-        border-radius: 25px;
+        padding: 12px 0;
+        font-size: 1em;
+        border-radius: 20px;
         cursor: pointer;
         font-weight: bold;
         font-family: "Ancizar Serif", serif;
         text-align: center;
         flex-grow: 1;
-        margin-left: 15px;
         box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     }
+
+    .add-to-cart-btn:hover {
+        background-color: #D4B08A;
+    }
+
 
     .product-not-found {
         text-align: center;
         padding: 50px 20px;
         font-size: 1.2em;
     }
+
     .product-not-found a {
+        color: #FFD700;
+    }
+
+
+    /* --- CART PAGE STYLES --- */
+    .page-banner.cart-banner {
+        background-color: #C7A07A; /* Tan/Muted Gold */
+        padding: 15px 20px;
+        text-align: center;
+        margin-bottom: 0; /* Adjusted to make main directly below */
+        width: 100%;
+    }
+
+    .page-banner.cart-banner h1 {
+        font-family: "Vidaloka", serif;
+        font-size: 1.8em;
+        color: #FAF0E6; /* Linen/Off-White */
+        margin: 0;
+        font-weight: 400;
+        font-style: normal;
+    }
+
+    main.cart-content-area {
+        padding: 20px;
+        background-color: #401515;
+        color: #f0f0f0;
+    }
+
+    .cart-section-title {
+        font-family: "Vidaloka", serif;
+        font-size: 1.8em;
+        color: #FFF8DC;
+        padding-top: 0;
+        margin-bottom: 20px;
+        text-align: left;
+    }
+
+    #cart-items-container {
+        margin-bottom: 25px;
+    }
+
+    .cart-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: rgba(0,0,0,0.15);
+        padding: 12px 15px;
+        border-radius: 8px;
+        margin-bottom: 12px;
+    }
+
+    .cart-item-details {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        flex-grow: 1;
+    }
+
+    .cart-item .item-name {
+        font-family: "Vidaloka", serif;
+        font-size: 1.2em;
+        color: #FFF8DC;
+        margin-bottom: 3px;
+    }
+
+    .cart-item .item-quantity {
+        font-family: "Ancizar Serif", serif;
+        font-size: 0.9em;
+        color: #e0e0e0;
+    }
+
+    .cart-item .item-toppings {
+        font-size: 0.8em;
+        color: #c0c0c0;
+        margin-top: 4px;
+        display: block;
+        font-style: italic;
+    }
+
+    .cart-item-visuals {
+        display: flex;
+        align-items: center;
+    }
+
+    .cart-item .item-price {
+        font-family: "Vidaloka", serif;
+        font-size: 1.2em;
+        color: #FFF8DC;
+        margin-right: 15px;
+        min-width: 40px;
+        text-align: right;
+    }
+
+    .cart-item-image {
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        border-radius: 4px;
+    }
+
+    .delete-item-btn {
+        background-color: transparent;
+        border: none;
+        color: #ff6b6b;
+        font-size: 1.5em;
+        font-weight: bold;
+        cursor: pointer;
+        padding: 0 5px;
+        margin-left: 10px;
+        line-height: 1;
+    }
+
+    .delete-item-btn:hover {
+        color: #ff4757;
+    }
+
+    .cart-empty-message {
+        text-align: center;
+        font-family: "Ancizar Serif", serif;
+        font-size: 1.1em;
+        color: #e0e0e0;
+        padding: 40px 20px;
+    }
+
+    .cart-empty-message a {
+        color: #FFD700;
+        font-weight: bold;
+        text-decoration: none;
+    }
+
+    .cart-empty-message a:hover {
+        text-decoration: underline;
+    }
+
+    .hidden {
+        display: none !important;
+    }
+
+
+    .cart-total-section {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-family: "Vidaloka", serif;
+        font-size: 1.5em;
+        color: #FFF8DC;
+        background-color: #300A0A;
+        padding: 15px 20px;
+        border-radius: 8px;
+        margin-bottom: 30px;
+        font-weight: bold;
+    }
+
+    .order-options-container {
+        background-color: rgba(0,0,0,0.1);
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 30px;
+    }
+
+    .tabs {
+        display: flex;
+        margin-bottom: 20px;
+        border-bottom: 2px solid #77777780;
+    }
+
+    .tab-link {
+        flex-grow: 1;
+        padding: 12px 10px;
+        cursor: pointer;
+        background-color: transparent;
+        border: none;
+        border-bottom: 3px solid transparent;
+        color: #d0d0d0;
+        font-family: "Vidaloka", serif;
+        font-size: 1.3em;
+        text-align: center;
+        transition: color 0.3s ease, border-bottom-color 0.3s ease;
+    }
+
+    .tab-link.active {
+        color: #FFF8DC;
+        border-bottom-color: #C7A07A;
+        font-weight: bold;
+    }
+
+    .tab-link:not(.active):hover {
+        color: #FFF8DC;
+    }
+
+    .tab-content {
+        display: none;
+        padding-top: 10px;
+        animation: fadeIn 0.5s ease-in-out;
+    }
+
+    .tab-content.active {
+        display: block;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .pickup-info,
+    .restaurant-address-info,
+    .delivery-address-label {
+        font-family: "Ancizar Serif", serif;
+        font-size: 0.95em;
+        color: #e0e0e0;
+        margin-bottom: 10px;
+    }
+
+    #pickup-time {
+        font-weight: bold;
+        color: #FFF8DC;
+    }
+
+    .delivery-address-input {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 15px;
+        border-radius: 6px;
+        border: 1px solid #777;
+        background-color: #e0e0e0;
+        color: #333;
+        font-family: "Ancizar Serif", serif;
+        font-size: 1em;
+    }
+
+    .issues-call-section {
+        text-align: center;
+        font-family: "Vidaloka", serif;
+        color: #FFF8DC;
+        margin-top: 10px;
+        margin-bottom: 30px;
+        padding: 15px;
+        background-color: rgba(0,0,0,0.15);
+        border-radius: 8px;
+    }
+
+    .issues-call-section p {
+        margin: 3px 0;
+        font-size: 1.1em;
+    }
+
+    .issues-call-section .phone-number {
+        font-size: 1.3em;
+        font-weight: bold;
+    }
+
+    .confirm-purchase-btn {
+        background-color: #A52A2A; /* Brownish Red */
+        color: white;
+        border: none;
+        padding: 18px 20px;
+        font-size: 1.2em;
+        border-radius: 30px;
+        cursor: pointer;
+        font-weight: bold;
+        font-family: "Vidaloka", serif;
+        text-align: center;
+        width: 100%;
+        max-width: 350px;
+        margin: 0 auto 0 auto;
+        display: block;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        transition: background-color 0.2s ease, transform 0.1s ease;
+        margin-top: auto;
+    }
+
+    .confirm-purchase-btn:hover {
+        background-color: #8B0000; /* Darker red */
+    }
+
+    .confirm-purchase-btn:active {
+        transform: translateY(1px);
+    }
+
+
+    /* --- COMMON: CONTACT US SECTION --- */
+    .contact-us {
+        background-color: #333333; /* Dark Gray - THIS IS THE TARGET LOOK */
+        color: #f0f0f0;            /* Default light text for p, social icons within */
+        padding-top: 30px;
+        padding-right: 20px;
+        padding-bottom: 30px;     /* Default internal bottom padding */
+        padding-left: 20px;
+        text-align: center;
+        width: 100%;
+        flex-shrink: 0; /* For body:not(.homepage):not(.product-page-body) direct children */
+    }
+
+    .contact-us h2 {
+        /* font-size, margin, font-family, etc. already grouped from before */
+        color: #f0f0f0; /* Light text for H2 on the #333333 background */
+    }
+
+    .contact-us p {
+        font-size: 0.9em;
+        line-height: 1.5;
+        margin: 8px 0;
+        font-family: "Vidaloka", serif;
+        font-weight: 400;
+        font-style: normal;
+        color: #f0f0f0; /* Explicitly ensure p text is light */
+    }
+
+    /* --- COMMON: SOCIAL ICONS (already styled generally) --- */
+    .social-icons {
+        margin-top: 20px;
+    }
+
+    .social-icons a { /* This general rule applies everywhere */
+        color: #f0f0f0; /* Default light color for social icons */
+        font-size: 1.5em;
+        margin: 0 10px;
+        text-decoration: none;
+    }
+
+    .social-icons a:hover {
         color: #FFD700; /* Gold */
     }
-}
 
+
+    /* --- FIX FOR GAP ABOVE FOOTER --- */
+    /* Homepage uses body.homepage { padding-bottom: 55px; }
+       The .contact-us on homepage will use its default styles defined above. */
+
+    /* For Menu & Cart pages (body:not(.homepage):not(.product-page-body)) */
+    body:not(.homepage):not(.product-page-body) > .contact-us {
+        margin-top: auto; /* Pushes to bottom if content above is short */
+        /* NO background-color override here - let it use the default #333333 */
+        /* NO color overrides for h2, p, social-icons here - let them inherit from general .contact-us rules */
+    }
+    /* The body:not(.homepage):not(.product-page-body) { padding-bottom: 55px; } handles footer space */
+
+
+    /* Product page <main> internal padding (Footer is hidden on product page body) */
+    main.product-details-container {
+         padding-bottom: 30px; /* Space at the bottom of the modal content */
+    }
+
+
+    /* --- COMMON: FOOTER STYLES --- */
+    /* ... (Footer styles as before - no change needed here for this specific issue) ... */
+    footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 55px; /* Explicit Footer Height */
+        box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+        z-index: 1000;
+        flex-shrink: 0;
+    }
+
+    body.product-page-body footer { /* Hide footer on product modal page */
+        display: none;
+    }
+
+    .footer-nav {
+        display: flex;
+        height: 100%;
+        background-color: #A91F1F;
+    }
+
+    .footer-nav .nav-item {
+        flex-grow: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+        color: white;
+        font-size: 1.7em;
+        background-color: #A91F1F;
+        cursor: pointer;
+        transition: background-color 0.2s ease-in-out;
+        border: 0 solid transparent;
+        margin: 0;
+        padding: 0;
+        outline: 1px solid transparent;
+        position: relative;
+    }
+
+    .nav-item-cart .cart-icon-wrapper {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+    }
+    .nav-item-cart .cart-badge {
+        position: absolute;
+        top: -5px;
+        right: -10px;
+        background-color: #007bff;
+        color: white;
+        font-family: "Ancizar Serif", serif;
+        font-optical-sizing: auto;
+        font-weight: bold;
+        font-size: 0.6em;
+        min-width: 18px;
+        height: 18px;
+        padding: 0 5px;
+        border-radius: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        line-height: 1;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        pointer-events: none;
+        z-index: 1;
+        text-align: center;
+    }
+
+    .footer-nav .nav-item.active {
+        background-color: #5C1A1A;
+    }
+
+    .footer-nav .nav-item:not(.active):hover {
+        background-color: #c82f2f;
+    }
+}

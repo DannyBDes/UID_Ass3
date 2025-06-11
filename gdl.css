@@ -1034,4 +1034,149 @@ html {
     .footer-nav .nav-item:not(.active):hover {
         background-color: #c82f2f;
     }
+
+    /* --- CHECKOUT PAGE STYLES --- */
+    body.checkout-page {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        padding-bottom: 55px; /* Space for the 55px fixed footer height */
+    }
+
+    body.checkout-page > header,
+    body.checkout-page > .page-banner.checkout-banner {
+        flex-shrink: 0;
+    }
+
+    body.checkout-page > main {
+        flex-grow: 1;
+    }
+
+    .page-banner.checkout-banner {
+        background-color: #5a0e0e; /* Darker red from menu search, as per image */
+        padding: 15px 20px;
+        text-align: center;
+        width: 100%;
+    }
+
+    .page-banner.checkout-banner h1 {
+        font-family: "Vidaloka", serif;
+        font-size: 1.8em;
+        color: #FFF8DC; /* Light text for contrast */
+        margin: 0;
+        font-weight: 400;
+    }
+
+    main.checkout-form-area {
+        background-color: #401515;
+        padding: 25px 20px;
+        color: #f0f0f0;
+    }
+
+    #checkout-form {
+        max-width: 500px;
+        margin: 0 auto;
+    }
+
+    #checkout-form fieldset {
+        border: none;
+        padding: 0;
+        margin: 0 0 25px 0;
+    }
+
+    #checkout-form legend {
+        font-family: "Vidaloka", serif;
+        font-size: 1.8em;
+        color: #FFF8DC;
+        margin-bottom: 20px;
+        width: 100%;
+        padding-bottom: 5px;
+        border-bottom: 1px solid rgba(255, 248, 220, 0.2);
+    }
+
+    .form-row {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 15px;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+        flex-grow: 1;
+    }
+
+    #checkout-form label {
+        display: block;
+        font-family: "Ancizar Serif", serif;
+        font-size: 0.9em;
+        color: #e0e0e0;
+        margin-bottom: 6px;
+    }
+
+    #checkout-form input[type="text"],
+    #checkout-form input[type="email"],
+    #checkout-form input[type="tel"] {
+        width: 100%;
+        padding: 12px;
+        border-radius: 6px;
+        border: 1px solid #777;
+        background-color: #e0e0e0;
+        color: #333;
+        font-family: "Ancizar Serif", serif;
+        font-size: 1em;
+        box-sizing: border-box; /* Ensures padding doesn't affect width */
+    }
+
+    #checkout-form input::placeholder {
+        color: #888;
+    }
+
+    .receipt-info {
+        font-family: "Ancizar Serif", serif;
+        font-size: 0.9em;
+        text-align: center;
+        color: #c0c0c0;
+        margin: 30px 0 25px 0;
+    }
+
+    .place-order-btn {
+        background-color: #A52A2A; /* Brownish Red, consistent with cart */
+        color: white;
+        border: none;
+        padding: 18px 20px;
+        font-size: 1.2em;
+        border-radius: 30px;
+        cursor: pointer;
+        font-weight: bold;
+        font-family: "Vidaloka", serif;
+        text-align: center;
+        width: 100%;
+        display: block;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        transition: background-color 0.2s ease, transform 0.1s ease;
+    }
+
+    .place-order-btn:hover {
+        background-color: #8B0000; /* Darker red */
+    }
+
+    .place-order-btn:active {
+        transform: translateY(1px);
+    }
+
+    .contact-us.checkout-page-contact {
+        margin-top: auto; /* Pushes to bottom of flex container */
+    }
+
+    /* --- COPYRIGHT TEXT --- */
+    .contact-us .copyright-text {
+        margin-top: 25px;
+        margin-bottom: 0;
+        font-size: 0.8em;
+        color: #a0a0a0; /* Slightly dimmer than other text */
+        font-family: "Ancizar Serif", serif; /* Use the secondary font */
+        font-weight: normal;
+        font-style: normal;
+        line-height: 1.5;
+    }
 }

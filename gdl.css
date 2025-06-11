@@ -1,5 +1,7 @@
-/* --- GLOBAL RESETS & BOX SIZING --- */
-html {
+/* ==========================================================================
+   1. GLOBAL STYLES & RESETS
+   ========================================================================== */
+   html {
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased; /* Optional: for smoother fonts */
     -moz-osx-font-smoothing: grayscale; /* Optional: for smoother fonts */
@@ -12,7 +14,6 @@ html {
 }
 
 @media (min-width: 390px) {
-    /* --- GLOBAL BODY STYLES --- */
     body {
         margin: 0;
         padding: 0;
@@ -24,7 +25,11 @@ html {
         overflow-x: hidden;
     }
 
-    /* --- STICKY FOOTER FLEX MODEL (for menu.html, prod.html (modal body), cart.html) --- */
+/* ==========================================================================
+   2. LAYOUT MODELS
+   ========================================================================== */
+
+    /* --- STICKY FOOTER FLEX MODEL (for menu, cart, checkout pages) --- */
     body:not(.homepage):not(.product-page-body) {
         display: flex;
         flex-direction: column;
@@ -35,7 +40,8 @@ html {
     body:not(.homepage):not(.product-page-body) > header,
     body:not(.homepage):not(.product-page-body) > .menu-search-section,
     body:not(.homepage):not(.product-page-body) > .menu-page-title-container,
-    body:not(.homepage):not(.product-page-body) > .page-banner.cart-banner {
+    body:not(.homepage):not(.product-page-body) > .page-banner.cart-banner,
+    body:not(.homepage):not(.product-page-body) > .page-banner.checkout-banner {
         flex-shrink: 0;
     }
 
@@ -55,7 +61,6 @@ html {
 
     body.homepage > main {
         display: block; /* Standard block flow */
-        /* No flex-grow needed */
     }
 
     /* --- PRODUCT PAGE BODY OVERRIDE (for modal-like appearance) --- */
@@ -65,55 +70,13 @@ html {
         height: 100vh;
         overflow: hidden; /* Body itself shouldn't scroll if modal is sized for viewport */
         padding: 0; /* Reset body padding for full overlay */
-        /* Footer is hidden on this page */
     }
 
-    body.product-page-body::before { /* Blurred background for product page */
-        content: '';
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        z-index: -1;
-        background-image: url('path/to/your/menu-background-blurry.jpg'); /* <<< REPLACE */
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        filter: blur(8px);
-    }
+/* ==========================================================================
+   3. PAGE-SPECIFIC STYLES
+   ========================================================================== */
 
-
-    /* --- HEADER STYLES (COMMON) --- */
-    header {
-        background-color: #8B0000; /* Dark Red */
-        padding: 10px 0;
-        text-align: center;
-        height: 60px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        position: relative;
-        z-index: 1001;
-    }
-
-    body.product-page-body > header { /* Hide header on product page modal view */
-        display: none;
-    }
-
-    .logo-container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .header-logo {
-        height: 50px;
-        width: auto;
-    }
-
-    /* --- HOMEPAGE SPECIFIC STYLES --- */
+    /* --- PAGE: HOMEPAGE (index.html) --- */
     .opening {
         background-image: url('gdlspot.jpg');
         background-size: cover;
@@ -155,12 +118,12 @@ html {
     }
 
     .order-button-link {
-        display: inline-block; /* Allows the link to respect button's dimensions and layout */
-        text-decoration: none; /* Removes underline from the link if any appears */
+        display: inline-block;
+        text-decoration: none;
     }
 
     .order-button {
-        background-color: #A52A2A; /* Brownish Red */
+        background-color: #A52A2A;
         color: white;
         border: none;
         padding: 15px 40px;
@@ -178,8 +141,14 @@ html {
     }
 
     .recommended-dishes h2,
+    .about-us h2 {
+        color: #333;
+    }
+
+    /* Combined H2 rule from original file */
+    .recommended-dishes h2,
     .about-us h2,
-    .contact-us h2 { /* General H2 style for these sections */
+    .contact-us h2 {
         font-size: 1.8em;
         margin-bottom: 20px;
         font-family: "Vidaloka", serif;
@@ -187,12 +156,6 @@ html {
         font-style: normal;
     }
 
-    .recommended-dishes h2,
-    .about-us h2 { /* Specific color for light backgrounds */
-        color: #333;
-    }
-
-    /* HOMEPAGE "RECOMMENDED DISHES" SPECIFIC STYLES */
     body.homepage .recommended-dishes > .dishes-container {
         display: flex;
         justify-content: space-around;
@@ -232,7 +195,6 @@ html {
         margin-bottom: 10px;
     }
 
-
     .about-us p {
         font-size: 1em;
         line-height: 1.6;
@@ -250,9 +212,9 @@ html {
         margin-top: 10px;
     }
 
-    /* --- MENU PAGE SPECIFIC STYLES --- */
+    /* --- PAGE: MENU (menu.html) --- */
     .menu-search-section {
-        background-color: #5a0e0e; /* Dark Taupe/Brown */
+        background-color: #5a0e0e;
         padding: 15px 20px;
         display: flex;
         justify-content: center;
@@ -271,7 +233,7 @@ html {
     }
 
     .menu-search-bar-container .search-icon-menu {
-        color: #FAF0E6; 
+        color: #FAF0E6;
         margin-right: 12px;
         font-size: 1em;
     }
@@ -287,12 +249,12 @@ html {
     }
 
     .menu-search-bar-container input::placeholder {
-        color: #FAF0E6; /* Medium Grey placeholder */
+        color: #FAF0E6;
         font-family: "Ancizar Serif", serif;
     }
 
     .menu-page-title-container {
-        background-color: #C7A07A; /* Tan/Muted Gold */
+        background-color: #C7A07A;
         padding: 20px 20px;
         text-align: center;
         width: 100%;
@@ -301,7 +263,7 @@ html {
     .menu-page-title-container h1 {
         font-family: "Vidaloka", serif;
         font-size: 2.5em;
-        color: #FAF0E6; /* Linen/Off-White */
+        color: #FAF0E6;
         margin: 0;
         font-weight: 400;
         font-style: normal;
@@ -413,14 +375,9 @@ html {
         margin: 0;
     }
 
-    .dish-item-hidden {
-        display: none !important;
-    }
-
-
-    /* --- PRODUCT DETAILS PAGE (prod.html) --- */
+    /* --- PAGE: PRODUCT DETAILS (prod.html) --- */
     main.product-details-container {
-        background-color: #5C1A1A; /* Darker, muted red */
+        background-color: #5C1A1A;
         color: #f0f0f0;
         padding: 20px;
         padding-top: 45px;
@@ -532,12 +489,12 @@ html {
         color: #e0e0e0;
         display: flex;
         align-items: center;
-        width: calc(50% - 8px); /* Adjusted for gap */
+        width: calc(50% - 8px);
     }
 
     .toppings-list-container input[type="checkbox"] {
         margin-right: 6px;
-        accent-color: #C7A07A; /* Tan checkmark */
+        accent-color: #C7A07A;
         width: 15px;
         height: 15px;
         cursor: pointer;
@@ -556,12 +513,12 @@ html {
         margin-top: auto;
         padding: 15px 5px 5px 5px;
         width: 100%;
-        border-top: 1px solid #702020; /* Darker red separator */
+        border-top: 1px solid #702020;
     }
 
     .product-close-button.circular-close-button {
         background-color: transparent;
-        color: #AAAAAA; /* Grey 'X' */
+        color: #AAAAAA;
         font-size: 1.8em;
         display: flex;
         justify-content: center;
@@ -580,8 +537,8 @@ html {
     }
 
     .add-to-cart-btn {
-        background-color: #C7A07A; /* Tan/Muted Gold */
-        color: #401515; /* Dark text for contrast */
+        background-color: #C7A07A;
+        color: #401515;
         border: none;
         padding: 12px 0;
         font-size: 1em;
@@ -598,7 +555,6 @@ html {
         background-color: #D4B08A;
     }
 
-
     .product-not-found {
         text-align: center;
         padding: 50px 20px;
@@ -609,20 +565,23 @@ html {
         color: #FFD700;
     }
 
+    main.product-details-container {
+        padding-bottom: 30px;
+    }
 
-    /* --- CART PAGE STYLES --- */
+    /* --- PAGE: CART (cart.html) --- */
     .page-banner.cart-banner {
-        background-color: #C7A07A; /* Tan/Muted Gold */
+        background-color: #C7A07A;
         padding: 15px 20px;
         text-align: center;
-        margin-bottom: 0; /* Adjusted to make main directly below */
+        margin-bottom: 0;
         width: 100%;
     }
 
     .page-banner.cart-banner h1 {
         font-family: "Vidaloka", serif;
         font-size: 1.8em;
-        color: #FAF0E6; /* Linen/Off-White */
+        color: #FAF0E6;
         margin: 0;
         font-weight: 400;
         font-style: normal;
@@ -728,22 +687,20 @@ html {
         font-size: 1.1em;
         color: #e0e0e0;
         padding: 40px 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
     .cart-empty-message a {
         color: #FFD700;
         font-weight: bold;
-        text-decoration: none;
-    }
-
-    .cart-empty-message a:hover {
         text-decoration: underline;
     }
 
-    .hidden {
-        display: none !important;
+    .cart-empty-message a:hover {
+        color: #fff8dc;
     }
-
 
     .cart-total-section {
         display: flex;
@@ -796,27 +753,6 @@ html {
         color: #FFF8DC;
     }
 
-    .tab-content {
-        display: none;
-        padding-top: 10px;
-        animation: fadeIn 0.5s ease-in-out;
-    }
-
-    .tab-content.active {
-        display: block;
-    }
-
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-            transform: translateY(10px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
     .pickup-info,
     .restaurant-address-info,
     .delivery-address-label {
@@ -865,7 +801,7 @@ html {
     }
 
     .confirm-purchase-btn {
-        background-color: #A52A2A; /* Brownish Red */
+        background-color: #A52A2A;
         color: white;
         border: none;
         padding: 18px 20px;
@@ -885,175 +821,16 @@ html {
     }
 
     .confirm-purchase-btn:hover {
-        background-color: #8B0000; /* Darker red */
+        background-color: #8B0000;
     }
 
     .confirm-purchase-btn:active {
         transform: translateY(1px);
     }
 
-
-    /* --- COMMON: CONTACT US SECTION --- */
-    .contact-us {
-        background-color: #333333; /* Dark Gray - THIS IS THE TARGET LOOK */
-        color: #f0f0f0;            /* Default light text for p, social icons within */
-        padding-top: 30px;
-        padding-right: 20px;
-        padding-bottom: 30px;     /* Default internal bottom padding */
-        padding-left: 20px;
-        text-align: center;
-        width: 100%;
-        flex-shrink: 0; /* For body:not(.homepage):not(.product-page-body) direct children */
-    }
-
-    .contact-us h2 {
-        /* font-size, margin, font-family, etc. already grouped from before */
-        color: #f0f0f0; /* Light text for H2 on the #333333 background */
-    }
-
-    .contact-us p {
-        font-size: 0.9em;
-        line-height: 1.5;
-        margin: 8px 0;
-        font-family: "Vidaloka", serif;
-        font-weight: 400;
-        font-style: normal;
-        color: #f0f0f0; /* Explicitly ensure p text is light */
-    }
-
-    /* --- COMMON: SOCIAL ICONS (already styled generally) --- */
-    .social-icons {
-        margin-top: 20px;
-    }
-
-    .social-icons a { /* This general rule applies everywhere */
-        color: #f0f0f0; /* Default light color for social icons */
-        font-size: 1.5em;
-        margin: 0 10px;
-        text-decoration: none;
-    }
-
-    .social-icons a:hover {
-        color: #FFD700; /* Gold */
-    }
-
-
-    /* --- FIX FOR GAP ABOVE FOOTER --- */
-    /* Homepage uses body.homepage { padding-bottom: 55px; }
-       The .contact-us on homepage will use its default styles defined above. */
-
-    /* For Menu & Cart pages (body:not(.homepage):not(.product-page-body)) */
-    body:not(.homepage):not(.product-page-body) > .contact-us {
-        margin-top: auto; /* Pushes to bottom if content above is short */
-        /* NO background-color override here - let it use the default #333333 */
-        /* NO color overrides for h2, p, social-icons here - let them inherit from general .contact-us rules */
-    }
-    /* The body:not(.homepage):not(.product-page-body) { padding-bottom: 55px; } handles footer space */
-
-
-    /* Product page <main> internal padding (Footer is hidden on product page body) */
-    main.product-details-container {
-         padding-bottom: 30px; /* Space at the bottom of the modal content */
-    }
-
-
-    /* --- COMMON: FOOTER STYLES --- */
-    /* ... (Footer styles as before - no change needed here for this specific issue) ... */
-    footer {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 55px; /* Explicit Footer Height */
-        box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
-        z-index: 1000;
-        flex-shrink: 0;
-    }
-
-    body.product-page-body footer { /* Hide footer on product modal page */
-        display: none;
-    }
-
-    .footer-nav {
-        display: flex;
-        height: 100%;
-        background-color: #A91F1F;
-    }
-
-    .footer-nav .nav-item {
-        flex-grow: 1;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-decoration: none;
-        color: white;
-        font-size: 1.7em;
-        background-color: #A91F1F;
-        cursor: pointer;
-        transition: background-color 0.2s ease-in-out;
-        border: 0 solid transparent;
-        margin: 0;
-        padding: 0;
-        outline: 1px solid transparent;
-        position: relative;
-    }
-
-    .nav-item-cart .cart-icon-wrapper {
-        position: relative;
-        display: inline-flex;
-        align-items: center;
-    }
-    .nav-item-cart .cart-badge {
-        position: absolute;
-        top: -5px;
-        right: -10px;
-        background-color: #007bff;
-        color: white;
-        font-family: "Ancizar Serif", serif;
-        font-optical-sizing: auto;
-        font-weight: bold;
-        font-size: 0.6em;
-        min-width: 18px;
-        height: 18px;
-        padding: 0 5px;
-        border-radius: 10px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        line-height: 1;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.3);
-        pointer-events: none;
-        z-index: 1;
-        text-align: center;
-    }
-
-    .footer-nav .nav-item.active {
-        background-color: #5C1A1A;
-    }
-
-    .footer-nav .nav-item:not(.active):hover {
-        background-color: #c82f2f;
-    }
-
-    /* --- CHECKOUT PAGE STYLES --- */
-    body.checkout-page {
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-        padding-bottom: 55px; /* Space for the 55px fixed footer height */
-    }
-
-    body.checkout-page > header,
-    body.checkout-page > .page-banner.checkout-banner {
-        flex-shrink: 0;
-    }
-
-    body.checkout-page > main {
-        flex-grow: 1;
-    }
-
+    /* --- PAGE: CHECKOUT (checkout.html) --- */
     .page-banner.checkout-banner {
-        background-color: #5a0e0e; /* Darker red from menu search, as per image */
+        background-color: #5a0e0e;
         padding: 15px 20px;
         text-align: center;
         width: 100%;
@@ -1062,7 +839,7 @@ html {
     .page-banner.checkout-banner h1 {
         font-family: "Vidaloka", serif;
         font-size: 1.8em;
-        color: #FFF8DC; /* Light text for contrast */
+        color: #FFF8DC;
         margin: 0;
         font-weight: 400;
     }
@@ -1124,7 +901,7 @@ html {
         color: #333;
         font-family: "Ancizar Serif", serif;
         font-size: 1em;
-        box-sizing: border-box; /* Ensures padding doesn't affect width */
+        box-sizing: border-box;
     }
 
     #checkout-form input::placeholder {
@@ -1140,7 +917,7 @@ html {
     }
 
     .place-order-btn {
-        background-color: #A52A2A; /* Brownish Red, consistent with cart */
+        background-color: #A52A2A;
         color: white;
         border: none;
         padding: 18px 20px;
@@ -1157,26 +934,215 @@ html {
     }
 
     .place-order-btn:hover {
-        background-color: #8B0000; /* Darker red */
+        background-color: #8B0000;
     }
 
     .place-order-btn:active {
         transform: translateY(1px);
     }
 
-    .contact-us.checkout-page-contact {
-        margin-top: auto; /* Pushes to bottom of flex container */
+
+/* ==========================================================================
+   4. COMMON COMPONENT STYLES
+   ========================================================================== */
+
+    /* --- HEADER (Original Unchanged) --- */
+    header {
+        background-color: #8B0000;
+        padding: 10px 0;
+        text-align: center;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        position: relative;
+        z-index: 1001;
     }
 
-    /* --- COPYRIGHT TEXT --- */
+    body.product-page-body > header {
+        display: none;
+    }
+
+    .logo-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .header-logo {
+        height: 50px;
+        width: auto;
+    }
+
+    /* --- CONTACT US SECTION (Original Unchanged) --- */
+    .contact-us {
+        background-color: #333333;
+        color: #f0f0f0;
+        padding-top: 30px;
+        padding-right: 20px;
+        padding-bottom: 30px;
+        padding-left: 20px;
+        text-align: center;
+        width: 100%;
+        flex-shrink: 0;
+    }
+
+    .contact-us h2 {
+        color: #f0f0f0;
+    }
+
+    .contact-us p {
+        font-size: 0.9em;
+        line-height: 1.5;
+        margin: 8px 0;
+        font-family: "Vidaloka", serif;
+        font-weight: 400;
+        font-style: normal;
+        color: #f0f0f0;
+    }
+
+    .social-icons {
+        margin-top: 20px;
+    }
+
+    .social-icons a {
+        color: #f0f0f0;
+        font-size: 1.5em;
+        margin: 0 10px;
+        text-decoration: none;
+    }
+
+    .social-icons a:hover {
+        color: #FFD700;
+    }
+
     .contact-us .copyright-text {
         margin-top: 25px;
         margin-bottom: 0;
         font-size: 0.8em;
-        color: #a0a0a0; /* Slightly dimmer than other text */
-        font-family: "Ancizar Serif", serif; /* Use the secondary font */
+        color: #a0a0a0;
+        font-family: "Ancizar Serif", serif;
         font-weight: normal;
         font-style: normal;
         line-height: 1.5;
+    }
+    
+    body:not(.homepage):not(.product-page-body) > .contact-us {
+        margin-top: auto;
+    }
+    
+    .contact-us.checkout-page-contact {
+        margin-top: auto;
+    }
+
+    /* --- FOOTER (Original Unchanged) --- */
+    footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 55px;
+        box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+        z-index: 1000;
+        flex-shrink: 0;
+    }
+
+    body.product-page-body footer {
+        display: none;
+    }
+
+    .footer-nav {
+        display: flex;
+        height: 100%;
+        background-color: #A91F1F;
+    }
+
+    .footer-nav .nav-item {
+        flex-grow: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+        color: white;
+        font-size: 1.7em;
+        background-color: #A91F1F;
+        cursor: pointer;
+        transition: background-color 0.2s ease-in-out;
+        border: 0 solid transparent;
+        margin: 0;
+        padding: 0;
+        outline: 1px solid transparent;
+        position: relative;
+    }
+
+    .nav-item-cart .cart-icon-wrapper {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+    }
+
+    .nav-item-cart .cart-badge {
+        position: absolute;
+        top: -5px;
+        right: -10px;
+        background-color: #007bff;
+        color: white;
+        font-family: "Ancizar Serif", serif;
+        font-optical-sizing: auto;
+        font-weight: bold;
+        font-size: 0.6em;
+        min-width: 18px;
+        height: 18px;
+        padding: 0 5px;
+        border-radius: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        line-height: 1;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        pointer-events: none;
+        z-index: 1;
+        text-align: center;
+    }
+
+    .footer-nav .nav-item.active {
+        background-color: #5C1A1A;
+    }
+
+    .footer-nav .nav-item:not(.active):hover {
+        background-color: #c82f2f;
+    }
+
+/* ==========================================================================
+   5. UTILITY & ANIMATION STYLES
+   ========================================================================== */
+    .hidden {
+        display: none !important;
+    }
+
+    .dish-item-hidden {
+        display: none !important;
+    }
+    
+    .tab-content {
+        display: none;
+        padding-top: 10px;
+        animation: fadeIn 0.5s ease-in-out;
+    }
+
+    .tab-content.active {
+        display: block;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
 }

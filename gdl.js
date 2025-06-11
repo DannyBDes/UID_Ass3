@@ -1,4 +1,4 @@
-// site.js (or gdl.js - Linked from index.html, menu.html, prod.html, cart.html)
+// gdl.js - Linked from index.html, menupage.html, productpage.html, shoppingcart.html)
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -32,7 +32,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (linkPath) {
                     const cleanLinkPath = linkPath.startsWith('./') ? linkPath.substring(2) : linkPath;
                     const cleanCurrentPath = currentPath.startsWith('./') ? currentPath.substring(2) : currentPath;
-                    if (cleanLinkPath === cleanCurrentPath) {
+
+                    // Add a check for the checkout page to also highlight the cart icon
+                    if (cleanLinkPath === cleanCurrentPath || (cleanCurrentPath === 'checkout.html' && cleanLinkPath === 'shoppingcart.html')) {
                         link.classList.add('active');
                     } else {
                         link.classList.remove('active');
@@ -91,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const pickupTimeElement = document.getElementById('pickup-time'); // Get the pickup time span
 
     function setEstimatedPickupTime() {
-        if (pickupTimeElement) { // Start of 'if' block
+        if (pickupTimeElement) { 
             const now = new Date();
             const pickupTime = new Date(now.getTime() + 20 * 60000); // Add 20 minutes
 
@@ -105,8 +107,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const formattedTime = `${hours}:${minutes} ${ampm}`;
             pickupTimeElement.textContent = formattedTime;
-        } // <<< CORRECTED: Added closing brace for the 'if (pickupTimeElement)'
-    } // Closing brace for 'setEstimatedPickupTime' function
+        } 
+    } 
 
     function renderCart() {
         if (!cartItemsContainer || !cartTotalPriceElement) return; // Only run if cart elements exist
@@ -216,23 +218,21 @@ document.addEventListener('DOMContentLoaded', () => {
                     alert("Your cart is empty. Please add items before confirming purchase.");
                     return;
                 }
+
                 const activeTab = document.querySelector('.tabs .tab-link.active');
-                let orderType = activeTab ? activeTab.textContent.trim() : 'Pick Up';
-                let details = '';
-                if (orderType === 'Pick Up') {
-                    details = `Pick Up Time: ${document.getElementById('pickup-time')?.textContent || 'Not set'}`;
-                } else if (orderType === 'Delivery') {
+                const orderType = activeTab ? activeTab.textContent.trim() : 'Pick Up';
+                
+                // If delivery is selected, ensure an address is entered before proceeding
+                if (orderType === 'Delivery') {
                     const addressInput = document.getElementById('delivery-address');
-                    details = `Delivery Address: ${addressInput?.value || 'Not provided'}`;
-                    if (!addressInput?.value.trim()) {
-                        alert('Please enter your delivery address.');
+                    if (!addressInput || !addressInput.value.trim()) {
+                        alert('Please enter your delivery address before proceeding to checkout.');
                         return;
                     }
                 }
-                alert(`Purchase Confirmed!\nOrder Type: ${orderType}\nDetails: ${details}\nTotal: ${document.getElementById('cart-total-price')?.textContent || '$0'}\n(This is a demo - no actual order placed)`);
                 
-                localStorage.removeItem('shoppingCart');
-                renderCart(); // Re-render which also calls updateCartBadge and resets count
+                // All checks passed, proceed to checkout page
+                window.location.href = 'checkout.html';
             });
         }
     }

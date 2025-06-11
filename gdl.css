@@ -154,6 +154,11 @@ html {
         line-height: 1.2;
     }
 
+    .order-button-link {
+        display: inline-block; /* Allows the link to respect button's dimensions and layout */
+        text-decoration: none; /* Removes underline from the link if any appears */
+    }
+
     .order-button {
         background-color: #A52A2A; /* Brownish Red */
         color: white;

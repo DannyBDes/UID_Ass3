@@ -34,7 +34,7 @@
         display: flex;
         flex-direction: column;
         min-height: 100vh;
-        padding-bottom: 55px; /* Space for the 55px fixed footer height */
+        padding-bottom: 55px; 
     }
 
     body:not(.homepage):not(.product-page-body) > header,
@@ -53,14 +53,14 @@
 
     /* --- HOMEPAGE BODY & MAIN OVERRIDE --- */
     body.homepage {
-        display: block; /* Standard block flow */
+        display: block; 
         position: relative;
-        padding-bottom: 55px; /* Space for the 55px fixed footer. */
+        padding-bottom: 55px; 
         min-height: calc(100vh - 55px); /* Optional: ensure content area fills viewport minus footer */
     }
 
     body.homepage > main {
-        display: block; /* Standard block flow */
+        display: block; 
     }
 
     /* --- PRODUCT PAGE BODY OVERRIDE (for modal-like appearance) --- */
@@ -99,7 +99,7 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background-color: rgba(0, 0, 0, 0.4); /* Dark overlay */
+        background-color: rgba(0, 0, 0, 0.4);
         z-index: 1;
     }
 
@@ -145,7 +145,6 @@
         color: #333;
     }
 
-    /* Combined H2 rule from original file */
     .recommended-dishes h2,
     .about-us h2,
     .contact-us h2 {
@@ -212,7 +211,7 @@
         margin-top: 10px;
     }
 
-    /* --- PAGE: MENU (menu.html) --- */
+    /* --- PAGE: MENU (menupage.html) --- */
     .menu-search-section {
         background-color: #5a0e0e;
         padding: 15px 20px;
@@ -375,7 +374,7 @@
         margin: 0;
     }
 
-    /* --- PAGE: PRODUCT DETAILS (prod.html) --- */
+    /* --- PAGE: PRODUCT DETAILS (productpage.html) --- */
     main.product-details-container {
         background-color: #5C1A1A;
         color: #f0f0f0;
@@ -569,7 +568,7 @@
         padding-bottom: 30px;
     }
 
-    /* --- PAGE: CART (cart.html) --- */
+    /* --- PAGE: CART (shoppingcart.html) --- */
     .page-banner.cart-banner {
         background-color: #C7A07A;
         padding: 15px 20px;
@@ -946,7 +945,7 @@
    4. COMMON COMPONENT STYLES
    ========================================================================== */
 
-    /* --- HEADER (Original Unchanged) --- */
+    /* --- HEADER --- */
     header {
         background-color: #8B0000;
         padding: 10px 0;
@@ -975,7 +974,7 @@
         width: auto;
     }
 
-    /* --- CONTACT US SECTION (Original Unchanged) --- */
+    /* --- CONTACT US SECTION --- */
     .contact-us {
         background-color: #333333;
         color: #f0f0f0;
@@ -1036,7 +1035,7 @@
         margin-top: auto;
     }
 
-    /* --- FOOTER (Original Unchanged) --- */
+    /* --- FOOTER --- */
     footer {
         position: fixed;
         bottom: 0;

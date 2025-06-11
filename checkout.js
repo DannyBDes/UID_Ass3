@@ -1,11 +1,34 @@
-// checkout.js
 document.addEventListener('DOMContentLoaded', () => {
     const checkoutForm = document.getElementById('checkout-form');
+    const cardNumberInput = document.getElementById('card-number');
+
+    // --- CARD NUMBER AUTO-FORMATTING ---
+    if (cardNumberInput) {
+        // This function runs every time the user types a character
+        cardNumberInput.addEventListener('input', (event) => {
+            const input = event.target;
+
+            // 1. Get a "clean" version of the number by removing all spaces and non-digits
+            let rawValue = input.value.replace(/\D/g, '');
+
+            // 2. Limit the number to 16 digits
+            rawValue = rawValue.substring(0, 16);
+            
+            // 3. Break the clean number into chunks of 4 digits
+            const chunks = rawValue.match(/.{1,4}/g);
+            
+            // 4. Join the chunks back together with spaces in between
+            const formattedValue = chunks ? chunks.join(' ') : '';
+            
+            // 5. Update the input field with the newly formatted value
+            input.value = formattedValue;
+        });
+    }
+
+    // --- FORM SUBMISSION LOGIC (unchanged) ---
     if (checkoutForm) {
         checkoutForm.addEventListener('submit', (event) => {
-            event.preventDefault(); // Stop the form from submitting the default way
-
-            // Basic validation check
+            event.preventDefault(); 
             const inputs = checkoutForm.querySelectorAll('input[required]');
             let allFieldsFilled = true;
             inputs.forEach(input => {
@@ -19,18 +42,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // If validation passes:
-            // 1. Clear the cart from localStorage
             localStorage.removeItem('shoppingCart');
             localStorage.removeItem('cartItemCount');
-
-            // 2. Show a confirmation message
             alert('Order Placed! Thank you for your purchase.\n(This is a demo - no actual payment was processed).');
-
-            // 3. Redirect to the homepage after a short delay
             setTimeout(() => {
                 window.location.href = 'index.html';
-            }, 1000); // 1-second delay
+            }, 1000);
         });
     }
 });
